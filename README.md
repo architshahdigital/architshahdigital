@@ -28,7 +28,7 @@
 ### 🧰 Tools & Tech
 
 **AI & Automation**
-`Claude` · `ChatGPT` · `Ideogram` · `Reframer` · AI content workflows
+`Claude` · `ChatGPT` · `Ideogram` · `Reframer` · `Higgsfield` · `Remotion` · `Pixverse` · `Midjourney` · `ElevenLabs` · `GLM` · `Hermes Agent` · `Gemini` · `Grok` · `Perplexity` · AI content workflows
 
 **Marketing & SEO**
 `Meta Ads` · `Google Ads` · `GA4` · `Semrush` · `Ahrefs` · `AIOSEO` · `HubSpot`
