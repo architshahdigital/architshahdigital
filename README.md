@@ -41,10 +41,10 @@
 
 ---
 
-### 📌 Featured Projects
+### 📌 Featured Work
 
-- **🍵 BrewYourSip — Shopify Storefront** · Custom Liquid theme for my own D2C tea brand. Responsive, conversion-focused UX built from the ground up.
-- **🏋️ FitEquipUSA — Landing Page** · Responsive HTML/CSS landing page with a clean, conversion-oriented layout.
+- **🍵 [BrewYourSip](https://brewyoursip.com)** — D2C tea brand I founded & scaled from zero. Built the storefront, brand identity, Amazon Brand Store, and the full AI-integrated marketing engine behind it.
+- **🌐 [architshahdigital.com](https://architshahdigital.com)** — My portfolio: case studies across performance marketing, SEO, and AI content workflows.
 
 ---
 
