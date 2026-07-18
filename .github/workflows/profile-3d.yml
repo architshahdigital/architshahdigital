@@ -5,12 +5,15 @@ on:
     - cron: "0 18 * * *" # Runs every day at 6 PM UTC
   workflow_dispatch: # Allows you to trigger it manually
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: generate-github-profile-3d-contrib
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: yoshi389111/github-profile-3d-contrib@0.7.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,5 +23,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A .
-          git commit -m "Generated 3D Profile Contributions"
+          git commit -m "Generated 3D Profile Contributions" || exit 0
           git push
