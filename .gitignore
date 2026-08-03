@@ -1,0 +1,7 @@
+# Python bytecode from the ui-ux-pro-max skill scripts
+__pycache__/
+*.py[cod]
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
