@@ -1,0 +1,261 @@
+{%- assign v = product.selected_or_first_available_variant -%}
+{%- assign mf = product.metafields.verdant -%}
+
+<section class="pdp" data-section-id="{{ section.id }}">
+  <div class="pdp__banner">
+    <div class="wrap pdp__grid">
+      <div>
+        <nav class="crumbs mono" aria-label="{{ 'general.breadcrumb' | t }}">
+          <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span>
+          {%- if collection -%}
+            <a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>
+          {%- endif -%}
+          <span aria-current="page">{{ product.title }}</span>
+        </nav>
+
+        {%- comment -%}
+          The pouch is drawn in CSS 3D rather than shown as a photo, so it works
+          before a merchant has uploaded product imagery. If the product has a
+          featured image, that is shown instead.
+        {%- endcomment -%}
+        {%- if product.featured_image and section.settings.media_style == 'image' -%}
+          <div class="pdp__media">
+            {{ product.featured_image | image_url: width: 1200 | image_tag:
+               widths: '400,800,1200', class: 'pdp__img',
+               alt: product.featured_image.alt | default: product.title | escape }}
+          </div>
+        {%- else -%}
+          <div class="stage" id="stage">
+            <div class="stage__floor"></div>
+            <div class="pouch" id="pouch">
+              <div class="pouch__s pouch__s--l"></div>
+              <div class="pouch__s pouch__s--r"></div>
+              <div class="pouch__f pouch__f--back"></div>
+              <div class="pouch__f pouch__f--front"></div>
+              <div class="pouch__crimp"></div>
+              <div class="pouch__label">
+                <b>{{ section.settings.pouch_brand | default: shop.name }}</b><hr>
+                <i>
+                  {{ product.title }}
+                  {%- if mf.garden.value != blank %}<br>{{ mf.garden.value }}{% endif -%}
+                  {%- if mf.altitude.value != blank %} · {{ mf.altitude.value }}{% endif -%}
+                  {%- if mf.harvested.value != blank %}<br>{{ 'products.product.picked' | t }} {{ mf.harvested.value | date: '%d · %m · %Y' }}{% endif -%}
+                </i>
+              </div>
+            </div>
+            <p class="stage__hint mono">{{ 'products.product.drag_hint' | t }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="buy" data-buy-block>
+        <h1>{{ product.title }}</h1>
+        {%- if product.type != blank or mf.lot.value != blank -%}
+          <p class="buy__sub">
+            {{ product.type }}
+            {%- if mf.lot.value != blank %} · {{ mf.lot.value }}{% endif -%}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.show_rating -%}
+          <div class="buy__rate">
+            {% render 'star-rating', rating: section.settings.rating %}
+            <span class="mono">{{ section.settings.rating_text }}</span>
+          </div>
+        {%- endif -%}
+
+        <div class="buy__price">
+          <b data-price>{{ v.price | money }}</b>
+          <s data-compare {% unless v.compare_at_price > v.price %}hidden{% endunless %}>
+            {{ v.compare_at_price | money }}
+          </s>
+          {%- if v.compare_at_price > v.price -%}
+            {%- assign pct = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+            <em>{{ 'products.product.save' | t: percent: pct }}</em>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.unit_note != blank -%}
+          <p class="buy__unit mono">{{ section.settings.unit_note }}</p>
+        {%- endif -%}
+
+        {%- comment -%}
+          Must be the Liquid form tag, not a hand-written <form>: the dynamic
+          checkout button below is rendered from the `form` object it creates.
+        {%- endcomment -%}
+        {% form 'product', product, data-product-form: 'true' %}
+          {%- unless product.has_only_default_variant -%}
+            <div class="opt" data-variant-picker>
+              <span>{{ product.options.first }}</span>
+              <div class="sizes">
+                {%- for variant in product.variants -%}
+                  <button class="size" type="button"
+                          data-variant-id="{{ variant.id }}"
+                          aria-pressed="{% if variant.id == v.id %}true{% else %}false{% endif %}"
+                          {% unless variant.available %}disabled{% endunless %}>
+                    <b>{{ variant.title }}</b>
+                    <span>{{ variant.price | money }}</span>
+                    {%- if variant.available == false -%}<i>{{ 'products.product.sold_out' | t }}</i>{%- endif -%}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endunless -%}
+
+          <input type="hidden" name="id" value="{{ v.id }}" data-variant-input>
+
+          <div class="buy__qty">
+            <div class="qty">
+              <button type="button" data-step="-1" aria-label="{{ 'products.product.decrease' | t }}">
+                {% render 'icon', name: 'minus' %}
+              </button>
+              <input type="number" name="quantity" value="1" min="1" max="99"
+                     aria-label="{{ 'products.product.quantity' | t }}">
+              <button type="button" data-step="1" aria-label="{{ 'products.product.increase' | t }}">
+                {% render 'icon', name: 'plus' %}
+              </button>
+            </div>
+            {%- if section.settings.stock_note != blank -%}
+              <p class="mono">{{ section.settings.stock_note }}</p>
+            {%- endif -%}
+          </div>
+
+          <div class="buy__actions">
+            <button class="btn3 btn3--gold btn3--block" type="submit"
+                    data-add-button
+                    data-add-text="{{ 'products.product.add_to_cart' | t }}"
+                    data-sold-text="{{ 'products.product.sold_out' | t }}"
+                    {% unless v.available %}disabled{% endunless %}>
+              {% render 'icon', name: 'cart' %}
+              <span data-label>
+                {%- if v.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+              </span>
+            </button>
+            {{ form | payment_button }}
+          </div>
+        {% endform %}
+
+        {%- if v.available -%}
+          <p class="buy__note mono">
+            {% render 'icon', name: 'check' %}
+            {{ section.settings.dispatch_note }}
+          </p>
+        {%- endif -%}
+
+        <div class="buy__ship">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'promise' -%}
+              <div {{ block.shopify_attributes }}>
+                {% render 'icon', name: block.settings.icon %}
+                <span>{{ block.settings.text }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- if product.description != blank -%}
+    <div class="wrap sec" style="padding-block:clamp(2.5rem,5vw,4rem)">
+      <div class="rte" style="max-width:60ch;color:var(--ink-2)">{{ product.description }}</div>
+    </div>
+  {%- endif -%}
+</section>
+
+<script type="application/json" id="ProductJson">{{ product | json }}</script>
+
+<div class="stickybuy" data-sticky-buy data-on="0">
+  <div class="stickybuy__l">
+    <span class="stickybuy__sw"></span>
+    <div>
+      <b>{{ product.title }}</b>
+      <span class="mono" data-sticky-price>{{ v.title }} · {{ v.price | money }}</span>
+    </div>
+  </div>
+  <form method="post" action="{{ routes.cart_add_url }}" data-product-form>
+    <input type="hidden" name="id" value="{{ v.id }}">
+    <input type="hidden" name="quantity" value="1">
+    <button class="btn3 btn3--gold btn3--sm" type="submit" data-add-button>
+      <span data-label>{{ 'products.product.add_to_cart' | t }}</span>
+    </button>
+  </form>
+</div>
+
+{%- if settings.enable_motion -%}
+<script>
+  // Draggable pouch with inertia. Scoped to this section so it is removed
+  // cleanly when the section is.
+  (function(){
+    var stage = document.getElementById("stage");
+    var pouch = document.getElementById("pouch");
+    if(!stage || !pouch) return;
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var spin = -26, vel = 0.12, dragging = false, lastX = 0;
+    stage.addEventListener("pointerdown", function(e){
+      dragging = true; lastX = e.clientX; vel = 0;
+      stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener("pointermove", function(e){
+      if(!dragging) return;
+      var dx = e.clientX - lastX; lastX = e.clientX;
+      spin += dx * 0.55; vel = dx * 0.14;
+    });
+    ["pointerup","pointercancel"].forEach(function(t){
+      stage.addEventListener(t, function(){ dragging = false; });
+    });
+    (function loop(){
+      if(!dragging){ spin += vel; vel += (0.12 - vel) * 0.02; }
+      pouch.style.setProperty("--spin", spin.toFixed(2));
+      requestAnimationFrame(loop);
+    })();
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_style",
+      "label": "Main media",
+      "options": [
+        { "value": "pouch", "label": "3D pouch (no image needed)" },
+        { "value": "image", "label": "Product photo" }
+      ],
+      "default": "pouch"
+    },
+    { "type": "text", "id": "pouch_brand", "label": "Wordmark on the pouch", "default": "Verdant" },
+    { "type": "header", "content": "Reviews" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show a rating", "default": true,
+      "info": "A placeholder until a reviews app is installed. Uncheck it if you have no reviews yet — an invented rating is not worth the trust it costs." },
+    { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "Rated by our cupping panel" },
+    { "type": "header", "content": "Notes" },
+    { "type": "text", "id": "unit_note", "label": "Under the price", "default": "About 20 cups" },
+    { "type": "text", "id": "stock_note", "label": "Beside the quantity", "default": "" },
+    { "type": "text", "id": "dispatch_note", "label": "Dispatch note", "default": "In stock · dispatched within 24 hours" }
+  ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Truck" },
+            { "value": "return", "label": "Return" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "leaf", "label": "Leaf" }
+          ], "default": "truck" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping over the threshold" }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

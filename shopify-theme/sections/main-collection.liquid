@@ -1,0 +1,56 @@
+<section class="sec" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    {%- if section.settings.show_filters -%}
+      {%- assign types = collection.all_types | uniq -%}
+      {%- if types.size > 1 -%}
+        <div class="chips" data-filter-chips>
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">{{ 'collections.general.all' | t }}</button>
+          {%- for t in types -%}
+            {%- if t != blank -%}
+              <button class="chip" type="button" data-filter="{{ t | escape }}" aria-pressed="false">{{ t }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    <p class="count mono" data-filter-count data-template="{{ 'collections.general.showing' | t }}">
+      {{ 'collections.general.showing' | t | replace: '[count]', collection.products_count }}
+    </p>
+
+    {%- paginate collection.products by section.settings.per_page -%}
+    <div class="grid-teas">
+      {%- for product in collection.products -%}
+        {% render 'product-card', card_product: product %}
+      {%- else -%}
+        <p class="empty mono">{{ 'collections.general.no_products' | t }}</p>
+      {%- endfor -%}
+    </div>
+    <p class="empty mono" data-filter-empty hidden>{{ 'collections.general.no_match' | t }}</p>
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="cta-row" style="justify-content:center;margin-top:2.6rem" aria-label="{{ 'general.pagination' | t }}">
+        {%- if paginate.previous -%}
+          <a class="btn3 btn3--ghost btn3--sm" href="{{ paginate.previous.url }}">{{ 'general.previous' | t }}</a>
+        {%- endif -%}
+        <span class="mono">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+        {%- if paginate.next -%}
+          <a class="btn3 btn3--ghost btn3--sm" href="{{ paginate.next.url }}">{{ 'general.next' | t }}</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection grid",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_filters", "label": "Show product type filters", "default": true,
+      "info": "Filters the products already on the page — it does not paginate across the whole catalogue." },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+{%- assign p = section.settings.lot_product -%}
+<header class="hero" data-section-id="{{ section.id }}">
+  {%- if settings.enable_motion -%}
+    <canvas id="garden" aria-hidden="true"></canvas>
+  {%- endif -%}
+  <div class="hero__veil"></div>
+
+  <div class="hero__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow mono">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    <h1>{{ section.settings.heading }}</h1>
+    {%- if section.settings.lede != blank -%}
+      <p class="hero__lede">{{ section.settings.lede }}</p>
+    {%- endif -%}
+
+    <div class="cta-row">
+      {%- if section.settings.cta_text != blank -%}
+        <a class="btn3 btn3--gold" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.cta_text }}{% render 'icon', name: 'arrow' %}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta2_text != blank -%}
+        <a class="btn3 btn3--ghost" href="{{ section.settings.cta2_link }}">{{ section.settings.cta2_text }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.proof != blank -%}
+      <p class="hero__proof mono">
+        {% render 'star-rating', rating: 5 %}
+        {{ section.settings.proof }}
+      </p>
+    {%- endif -%}
+  </div>
+
+  {%- if p != blank -%}
+    <aside class="specimen" aria-label="{{ 'sections.hero.current_lot' | t }}">
+      <div class="specimen__t">
+        {{ p.title }}
+        {%- if p.metafields.verdant.lot.value != blank -%}<i>{{ p.metafields.verdant.lot.value }}</i>{%- endif -%}
+      </div>
+      <dl>
+        {%- if p.metafields.verdant.garden.value != blank -%}
+          <dt>{{ 'products.product.garden' | t }}</dt><dd>{{ p.metafields.verdant.garden.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.verdant.altitude.value != blank -%}
+          <dt>{{ 'products.product.altitude' | t }}</dt><dd>{{ p.metafields.verdant.altitude.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.verdant.harvested.value != blank -%}
+          <dt>{{ 'products.product.picked' | t }}</dt><dd>{{ p.metafields.verdant.harvested.value | date: '%d %b %Y' }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.verdant.oxidation.value != blank -%}
+          <dt>{{ 'products.product.oxidation' | t }}</dt><dd>{{ p.metafields.verdant.oxidation.value }}</dd>
+        {%- endif -%}
+        <dt>{{ 'products.product.price' | t }}</dt><dd>{{ p.price | money }}</dd>
+      </dl>
+    </aside>
+  {%- endif -%}
+
+  {%- if section.settings.scroll_cue != blank -%}
+    <div class="scroll-cue"><span class="mono">{{ section.settings.scroll_cue }}</span><span class="scroll-cue__rail"></span></div>
+  {%- endif -%}
+</header>
+
+{% schema %}
+{
+  "name": "Hero — tea garden",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "The background is a live WebGL painting of misty terraced hills. It needs no image and falls back to a gradient where WebGL is unavailable." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Single origin · Whole leaf · Harvest dated" },
+    { "type": "richtext", "id": "heading", "label": "Heading",
+      "default": "<p>Tea that remembers the <em>mountain</em> it came from.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Intro",
+      "default": "We buy one lot at a time, direct from the family that picked it, and we stamp the altitude and harvest date onto every handmade pouch." },
+    { "type": "text", "id": "cta_text", "label": "Primary button", "default": "Shop the collection" },
+    { "type": "url", "id": "cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary button", "default": "Watch it brew" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary button link" },
+    { "type": "text", "id": "proof", "label": "Social proof line", "default": "Free shipping over ₹2,000" },
+    { "type": "product", "id": "lot_product", "label": "Featured lot (specimen card)" },
+    { "type": "text", "id": "scroll_cue", "label": "Scroll cue", "default": "Descend" }
+  ],
+  "presets": [{ "name": "Hero — tea garden" }]
+}
+{% endschema %}

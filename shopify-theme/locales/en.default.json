@@ -1,0 +1,103 @@
+{
+  "general": {
+    "home": "Home",
+    "breadcrumb": "Breadcrumb",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "meta": {
+      "tags": "Tagged {{ tags }}",
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "theme_toggle": "Switch light or dark theme"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search for a lot or a vessel",
+      "submit": "Search",
+      "results_count": "[count] results",
+      "no_results": "Nothing matched that. Try a garden name, or browse the collection."
+    },
+    "newsletter": {
+      "email": "Email address",
+      "placeholder": "you@example.com",
+      "success": "You are on the list. We will write when the next lot lands."
+    },
+    "404": {
+      "code": "Error 404",
+      "shop": "Browse the collection",
+      "home": "Back to the gardens"
+    }
+  },
+  "products": {
+    "product": {
+      "add": "Add",
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "on_sale": "On sale",
+      "added": "Added",
+      "garden": "Garden",
+      "pouch": "Pouch",
+      "altitude": "Altitude",
+      "picked": "Picked",
+      "oxidation": "Oxidation",
+      "price": "Price",
+      "save": "Save {{ percent }}%",
+      "quantity": "Quantity",
+      "increase": "Increase quantity",
+      "decrease": "Decrease quantity",
+      "drag_hint": "Drag to turn the pouch",
+      "rating_label": "{{ rating }} out of 5"
+    }
+  },
+  "collections": {
+    "general": {
+      "all": "All lots",
+      "items": "items",
+      "showing": "Showing [count] lots",
+      "no_products": "No lots in this collection yet.",
+      "no_match": "No lots in that style right now — the next release lands soon."
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your order",
+      "your_order": "Your order",
+      "summary": "Summary",
+      "empty": "Your order is empty",
+      "continue_shopping": "Browse the collection",
+      "note": "Order note",
+      "note_placeholder": "Anything we should know?",
+      "update": "Update",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "shipping_at_checkout": "Calculated at checkout",
+      "total": "Total",
+      "checkout": "Checkout",
+      "taxes_note": "Taxes and shipping calculated at checkout",
+      "add_to_box": "Add to this box",
+      "remove": "Remove",
+      "remove_title": "Remove {{ title }}",
+      "increase": "Increase {{ title }}",
+      "decrease": "Decrease {{ title }}",
+      "removed": "Removed from your order",
+      "error": "Something went wrong. Please try again.",
+      "ship_away": "Add [amount] more for free shipping",
+      "ship_unlocked": "Free shipping unlocked"
+    }
+  },
+  "sections": {
+    "announcement": {
+      "label": "Announcements"
+    },
+    "hero": {
+      "current_lot": "Current lot"
+    }
+  },
+  "onboarding": {
+    "product_title": "Your first lot",
+    "product_text": "Add products to this collection and they will appear here, with their garden and altitude."
+  }
+}

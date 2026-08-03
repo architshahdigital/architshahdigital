@@ -1,0 +1,16 @@
+{
+  "settings_schema": {
+    "colours": {
+      "name": "Colours"
+    },
+    "typography": {
+      "name": "Typography"
+    },
+    "layout": {
+      "name": "Layout"
+    },
+    "cart": {
+      "name": "Cart"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "current": {
+    "color_forest": "#12291F",
+    "color_moss": "#2F5D45",
+    "color_beige": "#E3D5BC",
+    "color_paper": "#F6F1E7",
+    "color_liquor": "#C08A2E",
+    "color_scheme_default": "system",
+    "show_theme_toggle": true,
+    "use_theme_fonts": true,
+    "page_width": 1216,
+    "enable_motion": true,
+    "cart_ajax": true,
+    "free_shipping_threshold": "2000",
+    "show_cart_upsell": true,
+    "contact_email": "hello@verdant.tea"
+  },
+  "presets": {
+    "Verdant": {
+      "color_forest": "#12291F",
+      "color_beige": "#E3D5BC",
+      "color_liquor": "#C08A2E",
+      "enable_motion": true
+    }
+  }
+}

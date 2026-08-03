@@ -5,3 +5,6 @@ __pycache__/
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Built theme package (regenerate with: cd shopify-theme && zip -r ../verdant-shopify-theme.zip .)
+verdant-shopify-theme.zip
