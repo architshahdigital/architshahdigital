@@ -3,7 +3,7 @@
   fallback when a product has no image, so the grid never shows a hole.
 {%- endcomment -%}
 {%- assign p = card_product -%}
-{%- assign garden = p.metafields.verdant.garden.value -%}
+{%- assign garden = p.metafields.tea.garden.value -%}
 {%- assign size = p.variants.first.title -%}
 <article class="tea reveal" data-product-type="{{ p.type | escape }}">
   <div class="tea__in">
@@ -18,8 +18,8 @@
         <span class="tea__tag">{{ 'products.product.sold_out' | t }}</span>
       {%- elsif p.compare_at_price > p.price -%}
         <span class="tea__tag">{{ 'products.product.on_sale' | t }}</span>
-      {%- elsif p.metafields.verdant.lot.value != blank -%}
-        <span class="tea__tag">{{ p.metafields.verdant.lot.value }}</span>
+      {%- elsif p.metafields.tea.lot.value != blank -%}
+        <span class="tea__tag">{{ p.metafields.tea.lot.value }}</span>
       {%- endif -%}
     </a>
 

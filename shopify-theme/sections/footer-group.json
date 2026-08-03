@@ -2,7 +2,51 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "footer": { "type": "footer", "settings": {} }
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop"
+          }
+        },
+        "learn": {
+          "type": "menu",
+          "settings": {
+            "heading": "Learn"
+          }
+        },
+        "ig": {
+          "type": "social",
+          "settings": {
+            "network": "Instagram"
+          }
+        },
+        "fb": {
+          "type": "social",
+          "settings": {
+            "network": "Facebook"
+          }
+        },
+        "wa": {
+          "type": "social",
+          "settings": {
+            "network": "WhatsApp"
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "learn",
+        "ig",
+        "fb",
+        "wa"
+      ],
+      "settings": {}
+    }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

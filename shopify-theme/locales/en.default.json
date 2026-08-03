@@ -58,7 +58,7 @@
       "items": "items",
       "showing": "Showing [count] lots",
       "no_products": "No lots in this collection yet.",
-      "no_match": "No lots in that style right now — the next release lands soon."
+      "no_match": "No teas in that style right now."
     }
   },
   "cart": {

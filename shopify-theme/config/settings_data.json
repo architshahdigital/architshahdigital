@@ -13,10 +13,10 @@
     "cart_ajax": true,
     "free_shipping_threshold": "2000",
     "show_cart_upsell": true,
-    "contact_email": "hello@verdant.tea"
+    "contact_email": "hello@brewyoursip.com"
   },
   "presets": {
-    "Verdant": {
+    "Brew Your Sip": {
       "color_forest": "#12291F",
       "color_beige": "#E3D5BC",
       "color_liquor": "#C08A2E",

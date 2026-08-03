@@ -1,21 +1,18 @@
 <section class="sec pouch-sec" data-section-id="{{ section.id }}">
   <div class="wrap pouch-grid">
-    <div class="pouch-stage">
-      <div class="pouch" id="pouch">
-        <div class="pouch__s pouch__s--l"></div>
-        <div class="pouch__s pouch__s--r"></div>
-        <div class="pouch__f pouch__f--back"></div>
-        <div class="pouch__f pouch__f--front"></div>
-        <div class="pouch__crimp"></div>
-        <div class="pouch__label">
-          <b>{{ section.settings.label_brand }}</b><hr>
-          <i>{{ section.settings.label_line }}</i>
-        </div>
-      </div>
-      {%- if section.settings.hint != blank -%}
-        <p class="pouch-hint mono">{{ section.settings.hint }}</p>
-      {%- endif -%}
-    </div>
+    {% render 'pouch-3d',
+         id: 'pouch',
+         brand: section.settings.label_brand,
+         line1: section.settings.label_line,
+         line2: section.settings.label_line2,
+         kraft_light: section.settings.kraft_light,
+         kraft_mid: section.settings.kraft_mid,
+         kraft_dark: section.settings.kraft_dark,
+         label_bg: section.settings.label_bg,
+         label_ink: section.settings.label_ink,
+         label_accent: section.settings.label_accent,
+         scale: section.settings.pouch_scale,
+         hint: section.settings.hint %}
 
     <div>
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow mono">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -48,10 +45,19 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The pouch" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Folded, stitched and stamped by hand." },
     { "type": "textarea", "id": "text", "label": "Text",
-      "default": "No tins, no plastic tubs. Each pouch is folded from unbleached kraft, lined with a food-safe foil barrier, crimped along the top and stitched shut." },
+      "default": "No tins, no plastic tubs. Each pouch is folded from unbleached kraft, lined with a food-safe foil barrier, crimped along the top and stitched shut by hand in Kolkata." },
     { "type": "header", "content": "3D pouch label" },
-    { "type": "text", "id": "label_brand", "label": "Wordmark on the pouch", "default": "Verdant" },
-    { "type": "text", "id": "label_line", "label": "Line under the wordmark", "default": "Misty Ridge · 50 g" },
+    { "type": "text", "id": "label_brand", "label": "Wordmark on the pouch", "default": "Brew Your Sip" },
+    { "type": "text", "id": "label_line", "label": "Line under the wordmark", "default": "Darjeeling First Flush" },
+    { "type": "text", "id": "label_line2", "label": "Second line", "default": "50 g · Whole leaf" },
+    { "type": "range", "id": "pouch_scale", "label": "Pouch size", "min": 70, "max": 140, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Pouch colours" },
+    { "type": "color", "id": "kraft_light", "label": "Kraft highlight", "default": "#CFBA90" },
+    { "type": "color", "id": "kraft_mid", "label": "Kraft mid", "default": "#AE9468" },
+    { "type": "color", "id": "kraft_dark", "label": "Kraft shadow", "default": "#8B7249" },
+    { "type": "color", "id": "label_bg", "label": "Label background", "default": "#12291F" },
+    { "type": "color", "id": "label_ink", "label": "Label text", "default": "#E3D5BC" },
+    { "type": "color", "id": "label_accent", "label": "Label accent", "default": "#C08A2E" },
     { "type": "text", "id": "hint", "label": "Hint text", "default": "Scroll to turn the pouch" },
     { "type": "text", "id": "cta_text", "label": "Button", "default": "See a pouch up close" },
     { "type": "url", "id": "cta_link", "label": "Button link" }

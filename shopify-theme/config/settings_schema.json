@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Verdant",
+    "theme_name": "Brew Your Sip",
     "theme_version": "1.0.0",
-    "theme_author": "Verdant Tea Co.",
+    "theme_author": "Brew Your Sip \u00b7 Unique Tea Centre, Kolkata",
     "theme_documentation_url": "https://github.com/architshahdigital/architshahdigital/tree/main/shopify-theme",
     "theme_support_url": "https://github.com/architshahdigital/architshahdigital/issues"
   },
@@ -56,9 +56,18 @@
         "id": "color_scheme_default",
         "label": "Default appearance",
         "options": [
-          { "value": "system", "label": "Follow the visitor's system setting" },
-          { "value": "light", "label": "Always light" },
-          { "value": "dark", "label": "Always dark" }
+          {
+            "value": "system",
+            "label": "Follow the visitor's system setting"
+          },
+          {
+            "value": "light",
+            "label": "Always light"
+          },
+          {
+            "value": "dark",
+            "label": "Always dark"
+          }
         ],
         "default": "system"
       },
@@ -78,7 +87,7 @@
         "id": "font_heading",
         "label": "Headings",
         "default": "assistant_n4",
-        "info": "Verdant is designed around a high-contrast serif. Pick one here, or leave the theme's system serif stack by unchecking below."
+        "info": "The theme is designed around a high-contrast serif. Pick one here, or keep the built-in system stack by leaving the checkbox below ticked."
       },
       {
         "type": "font_picker",
@@ -146,16 +155,23 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "The lot details (garden, altitude, harvest date) come from product metafields. Create these in Settings → Custom data → Products, all under the namespace 'verdant': garden (single line text), altitude (single line text), harvested (date), oxidation (single line text), lot (single line text). Any field you leave empty is simply skipped."
+        "content": "Lot details come from product metafields. Create these in Settings > Custom data > Products, all under the namespace 'tea': garden (single line text), altitude (single line text), harvested (date), oxidation (single line text), lot (single line text). Any field you leave empty is simply skipped."
       }
     ]
   },
   {
     "name": "Social",
     "settings": [
-      { "type": "text", "id": "social_instagram", "label": "Instagram URL" },
-      { "type": "text", "id": "social_youtube", "label": "YouTube URL" },
-      { "type": "text", "id": "contact_email", "label": "Contact email", "default": "hello@verdant.tea" }
+      {
+        "type": "paragraph",
+        "content": "Social links and the store address now live on the Footer section, so they can be reordered and translated with the rest of the footer."
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "hello@brewyoursip.com"
+      }
     ]
   }
 ]

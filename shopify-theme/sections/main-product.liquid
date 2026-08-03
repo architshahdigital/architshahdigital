@@ -1,5 +1,5 @@
 {%- assign v = product.selected_or_first_available_variant -%}
-{%- assign mf = product.metafields.verdant -%}
+{%- assign mf = product.metafields.tea -%}
 
 <section class="pdp" data-section-id="{{ section.id }}">
   <div class="pdp__banner">
@@ -27,22 +27,19 @@
         {%- else -%}
           <div class="stage" id="stage">
             <div class="stage__floor"></div>
-            <div class="pouch" id="pouch">
-              <div class="pouch__s pouch__s--l"></div>
-              <div class="pouch__s pouch__s--r"></div>
-              <div class="pouch__f pouch__f--back"></div>
-              <div class="pouch__f pouch__f--front"></div>
-              <div class="pouch__crimp"></div>
-              <div class="pouch__label">
-                <b>{{ section.settings.pouch_brand | default: shop.name }}</b><hr>
-                <i>
-                  {{ product.title }}
-                  {%- if mf.garden.value != blank %}<br>{{ mf.garden.value }}{% endif -%}
-                  {%- if mf.altitude.value != blank %} · {{ mf.altitude.value }}{% endif -%}
-                  {%- if mf.harvested.value != blank %}<br>{{ 'products.product.picked' | t }} {{ mf.harvested.value | date: '%d · %m · %Y' }}{% endif -%}
-                </i>
-              </div>
-            </div>
+            {% render 'pouch-3d', bare: true,
+                 id: 'pouch',
+                 brand: section.settings.pouch_brand,
+                 line1: product.title,
+                 line2: mf.garden.value,
+                 line3: mf.altitude.value,
+                 kraft_light: section.settings.kraft_light,
+                 kraft_mid: section.settings.kraft_mid,
+                 kraft_dark: section.settings.kraft_dark,
+                 label_bg: section.settings.label_bg,
+                 label_ink: section.settings.label_ink,
+                 label_accent: section.settings.label_accent,
+                 scale: section.settings.pouch_scale %}
             <p class="stage__hint mono">{{ 'products.product.drag_hint' | t }}</p>
           </div>
         {%- endif -%}
@@ -228,7 +225,15 @@
       ],
       "default": "pouch"
     },
-    { "type": "text", "id": "pouch_brand", "label": "Wordmark on the pouch", "default": "Verdant" },
+    { "type": "text", "id": "pouch_brand", "label": "Wordmark on the pouch", "default": "Brew Your Sip" },
+    { "type": "range", "id": "pouch_scale", "label": "Pouch size", "min": 70, "max": 140, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Pouch colours" },
+    { "type": "color", "id": "kraft_light", "label": "Kraft highlight", "default": "#CFBA90" },
+    { "type": "color", "id": "kraft_mid", "label": "Kraft mid", "default": "#AE9468" },
+    { "type": "color", "id": "kraft_dark", "label": "Kraft shadow", "default": "#8B7249" },
+    { "type": "color", "id": "label_bg", "label": "Label background", "default": "#12291F" },
+    { "type": "color", "id": "label_ink", "label": "Label text", "default": "#E3D5BC" },
+    { "type": "color", "id": "label_accent", "label": "Label accent", "default": "#C08A2E" },
     { "type": "header", "content": "Reviews" },
     { "type": "checkbox", "id": "show_rating", "label": "Show a rating", "default": true,
       "info": "A placeholder until a reviews app is installed. Uncheck it if you have no reviews yet — an invented rating is not worth the trust it costs." },
@@ -237,7 +242,7 @@
     { "type": "header", "content": "Notes" },
     { "type": "text", "id": "unit_note", "label": "Under the price", "default": "About 20 cups" },
     { "type": "text", "id": "stock_note", "label": "Beside the quantity", "default": "" },
-    { "type": "text", "id": "dispatch_note", "label": "Dispatch note", "default": "In stock · dispatched within 24 hours" }
+    { "type": "text", "id": "dispatch_note", "label": "Dispatch note", "default": "In stock · packed in Kolkata and dispatched within 24 hours" }
   ],
   "blocks": [
     {

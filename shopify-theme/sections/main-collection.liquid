@@ -18,7 +18,10 @@
       {{ 'collections.general.showing' | t | replace: '[count]', collection.products_count }}
     </p>
 
-    {%- paginate collection.products by section.settings.per_page -%}
+    {%- comment -%} never pass a nil or zero page size into paginate {%- endcomment -%}
+    {%- assign per = section.settings.per_page | default: 24 -%}
+    {%- if per < 1 -%}{%- assign per = 24 -%}{%- endif -%}
+    {%- paginate collection.products by per -%}
     <div class="grid-teas">
       {%- for product in collection.products -%}
         {% render 'product-card', card_product: product %}

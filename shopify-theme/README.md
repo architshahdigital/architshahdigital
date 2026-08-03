@@ -1,6 +1,6 @@
-# Verdant — Shopify Online Store 2.0 theme
+# Brew Your Sip — Shopify Online Store 2.0 theme
 
-A single-origin tea storefront. JSON templates, sections everywhere, no build
+The online vertical of Unique Tea Centre, New Market, Kolkata. A single-origin tea storefront. JSON templates, sections everywhere, no build
 step and no external dependencies — the 3D pouch, the misty tea-garden hero and
 the brewing sequence are all drawn in CSS and WebGL, so the theme works before a
 single product photo is uploaded.
@@ -9,7 +9,7 @@ single product photo is uploaded.
 
 1. In Shopify admin, go to **Online Store → Themes**.
 2. Under **Theme library**, choose **Add theme → Upload zip file**.
-3. Select `verdant-shopify-theme.zip`.
+3. Select `brew-your-sip-shopify-theme.zip`.
 4. **Customize** to edit, or **Publish** to make it live.
 
 ## Set up the lot metafields
@@ -20,7 +20,7 @@ specimen card and pouch label are the point of the design, so it is worth ten
 minutes.
 
 Go to **Settings → Custom data → Products → Add definition** and create these,
-all under the namespace `verdant`:
+all under the namespace `tea`:
 
 | Key | Type | Example |
 |---|---|---|
@@ -50,6 +50,38 @@ You may also like.
 **Collection** — Collection banner, Collection grid, Trust badges.
 
 **Cart** — Cart, with a free-shipping meter and contextual upsells.
+
+## Footer
+
+The footer is fully editable in the theme editor:
+
+- **Store details** — name, address, phone, email and opening hours.
+- **Map** — in Google Maps, find the shop, click *Share → Embed a map*, and copy
+  only the `src` URL from the iframe. Paste it into **Google Maps embed URL**.
+  Leave it blank and you get an address card with a directions button instead.
+  The map is tinted automatically in dark mode.
+- **Policies** — pulled live from *Settings → Policies*, so the links are always
+  the real ones. Any policy you have not written is skipped. Use **Extra links**
+  for pages Shopify has no policy field for.
+- **Menu columns** — add a *Menu column* block and point it at the same menus you
+  use in the header, so the footer mirrors the navigation.
+- **Social handles** — add a *Social handle* block per network. Each one only
+  appears once you give it a URL.
+
+## The 3D pouch
+
+The pouch on both the home page and the product page is drawn in CSS, and every
+part of it is editable: the kraft highlight, mid and shadow colours, the label
+background, text and accent colours, the size, and the label wording. On the
+product page the label fills itself in from the product title and its `tea`
+metafields.
+
+## Light and dark mode
+
+Both are designed, not inverted. *Colours → Default appearance* chooses whether
+the site follows the visitor's system setting or is pinned to one mode, and
+*Show the light/dark toggle in the header* controls the switch. The choice is
+remembered per visitor and applied before first paint, so there is no flash.
 
 ## Theme settings
 
