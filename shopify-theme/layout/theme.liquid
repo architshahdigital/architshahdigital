@@ -29,14 +29,22 @@
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
+  {%- comment -%}
+    Never divide an unset setting straight into a CSS length: Liquid turns nil
+    into 0, which would set --max to 0rem and collapse every .wrap on the site.
+    Fall back to a sane width whenever the value is missing or implausible.
+  {%- endcomment -%}
+  {%- assign page_w = settings.page_width -%}
+  {%- if page_w == blank or page_w < 320 -%}{%- assign page_w = 1220 -%}{%- endif -%}
+
   <style>
     :root{
-      --forest: {{ settings.color_forest }};
-      --moss: {{ settings.color_moss }};
-      --beige: {{ settings.color_beige }};
-      --paper: {{ settings.color_paper }};
-      --liquor: {{ settings.color_liquor }};
-      --max: {{ settings.page_width | divided_by: 16.0 }}rem;
+      --forest: {{ settings.color_forest | default: '#12291F' }};
+      --moss: {{ settings.color_moss | default: '#2F5D45' }};
+      --beige: {{ settings.color_beige | default: '#E3D5BC' }};
+      --paper: {{ settings.color_paper | default: '#F6F1E7' }};
+      --liquor: {{ settings.color_liquor | default: '#C08A2E' }};
+      --max: {{ page_w | divided_by: 16.0 }}rem;
       {%- if settings.use_theme_fonts == false %}
       --display: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
       --body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
