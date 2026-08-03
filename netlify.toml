@@ -7,6 +7,11 @@
 [build]
   publish = "verdant-tea"
   command = ""
+  # This repo is also the GitHub profile, and the 3D-contributions workflow
+  # commits to main on a schedule. Without this, every one of those bot commits
+  # would trigger a pointless rebuild. Exit 0 tells Netlify to skip the build,
+  # so it only deploys when the site itself actually changed.
+  ignore = "git diff --quiet HEAD^ HEAD -- verdant-tea netlify.toml"
 
 [build.processing]
   skip_processing = false
