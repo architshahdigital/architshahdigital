@@ -4,769 +4,335 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Verdant — Fine Tea, Single Origin</title>
-<meta name="description" content="Verdant — single origin, whole leaf tea. Every tin carries its garden, altitude and harvest date.">
+<meta name="description" content="Single origin, whole leaf tea in handcrafted pouches. Every pouch carries its garden, altitude and harvest date.">
 <meta name="theme-color" content="#12291F">
-</head>
-<body>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%2312291F%27/%3E%3Cpath d=%27M23 7c2.4 8-2 17-10 18-3.2.4-5.4-1.4-5.4-4.6C7.6 12.8 13.8 8 23 7z%27 fill=%27%237E9B84%27/%3E%3Cpath d=%27M9 24C13 18 17 13 22 9%27 stroke=%27%2312291F%27 stroke-width=%271.6%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
 <style>
 /* ============================================================
-   VERDANT — design tokens
-   Palette: forest green (primary) + beige (secondary)
+   HOME — hero, brewing sequence, pouch
    ============================================================ */
-:root{
-  /* brand */
-  --forest:#12291F;
-  --moss:#2F5D45;
-  --leaf:#4A7C5D;
-  --sage:#7E9B84;
-  --beige:#E3D5BC;
-  --paper:#F6F1E7;
-  --liquor:#C08A2E;
-
-  /* semantic — light */
-  --ground:#F6F1E7;
-  --ground-2:#EDE3D0;
-  --ink:#15241B;
-  --ink-2:#4C5F53;
-  --rule:#D7C8AC;
-  --panel:rgba(255,255,255,.5);
-  --panel-line:rgba(21,36,27,.10);
-  --accent:#2F5D45;
-  --shadow:rgba(18,41,31,.16);
-  --dark-mode:0;
-
-  /* type */
-  --display:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua','Hoefler Text',Georgia,serif;
-  --body:'Avenir Next',Avenir,'Segoe UI',system-ui,-apple-system,sans-serif;
-  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
-
-  --t-xs:.6875rem; --t-sm:.8125rem; --t-base:1rem; --t-md:1.125rem;
-  --t-lg:1.375rem; --t-xl:1.875rem; --t-2xl:2.75rem;
-  --t-3xl:clamp(2.75rem,7vw,5.5rem);
-  --t-4xl:clamp(3.5rem,12vw,9rem);
-
-  /* layout */
-  --gut:clamp(1.25rem,5vw,4.5rem);
-  --max:76rem;
-  --ease:cubic-bezier(.22,.61,.36,1);
-}
-
-@media (prefers-color-scheme:dark){
-  :root{
-    --ground:#0C1C15;
-    --ground-2:#12291F;
-    --ink:#EDE3D0;
-    --ink-2:#9CB2A2;
-    --rule:#2A4436;
-    --panel:rgba(227,213,188,.055);
-    --panel-line:rgba(227,213,188,.13);
-    --accent:#7E9B84;
-    --shadow:rgba(0,0,0,.5);
-    --dark-mode:1;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#0C1C15;
-  --ground-2:#12291F;
-  --ink:#EDE3D0;
-  --ink-2:#9CB2A2;
-  --rule:#2A4436;
-  --panel:rgba(227,213,188,.055);
-  --panel-line:rgba(227,213,188,.13);
-  --accent:#7E9B84;
-  --shadow:rgba(0,0,0,.5);
-  --dark-mode:1;
-}
-:root[data-theme="light"]{
-  --ground:#F6F1E7;
-  --ground-2:#EDE3D0;
-  --ink:#15241B;
-  --ink-2:#4C5F53;
-  --rule:#D7C8AC;
-  --panel:rgba(255,255,255,.5);
-  --panel-line:rgba(21,36,27,.10);
-  --accent:#2F5D45;
-  --shadow:rgba(18,41,31,.16);
-  --dark-mode:0;
-}
-
-/* ============================================================
-   base
-   ============================================================ */
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;
-  background:var(--ground);
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:var(--t-base);
-  line-height:1.6;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--liquor);outline-offset:3px;border-radius:2px}
-
-h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.04}
-p{margin:0}
-
-.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
-.mono{
-  font-family:var(--mono);
-  font-size:var(--t-xs);
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  font-variant-numeric:tabular-nums;
-}
-
-/* ============================================================
-   nav
-   ============================================================ */
-.nav{
-  position:fixed;inset:0 0 auto 0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;
-  padding:.9rem var(--gut);
-  background:color-mix(in srgb,var(--ground) 72%,transparent);
-  backdrop-filter:blur(16px) saturate(1.4);
-  -webkit-backdrop-filter:blur(16px) saturate(1.4);
-  border-bottom:1px solid transparent;
-  transition:border-color .4s var(--ease),background .4s var(--ease);
-}
-.nav[data-stuck="1"]{border-bottom-color:var(--panel-line)}
-.nav__mark{display:flex;align-items:baseline;gap:.6rem}
-.nav__mark strong{
-  font-family:var(--display);font-size:var(--t-md);font-weight:400;
-  letter-spacing:.28em;text-transform:uppercase;
-}
-.nav__mark span{color:var(--ink-2)}
-.nav__links{display:flex;gap:2rem;align-items:center}
-.nav__links a{
-  font-family:var(--mono);font-size:var(--t-xs);
-  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
-  padding:.35rem 0;position:relative;transition:color .3s var(--ease);
-}
-.nav__links a::after{
-  content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
-  background:var(--liquor);transition:width .35s var(--ease);
-}
-.nav__links a:hover{color:var(--ink)}
-.nav__links a:hover::after{width:100%}
-@media (max-width:820px){.nav__links{display:none}}
-
-.theme-btn{
-  width:38px;height:38px;display:grid;place-items:center;
-  border:1px solid var(--panel-line);border-radius:50%;
-  color:var(--ink-2);transition:color .3s var(--ease),border-color .3s var(--ease);
-}
-.theme-btn:hover{color:var(--ink);border-color:var(--ink-2)}
-.theme-btn svg{width:16px;height:16px}
-.theme-btn .i-sun{display:none}
-:root[data-theme="dark"] .theme-btn .i-sun{display:block}
-:root[data-theme="dark"] .theme-btn .i-moon{display:none}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .theme-btn .i-sun{display:block}
-  :root:not([data-theme="light"]) .theme-btn .i-moon{display:none}
-}
-
-/* ============================================================
-   hero — WebGL ground + 3D parallax layers
-   ============================================================ */
-.hero{
-  position:relative;min-height:100svh;
-  display:grid;align-items:center;
-  padding:7rem 0 3rem;
-  overflow:hidden;
-  perspective:1400px;
-  perspective-origin:50% 45%;
-}
-#gl,#leaves{position:absolute;inset:0;width:100%;height:100%;display:block}
-#gl{z-index:0}
-#leaves{z-index:1;pointer-events:none}
-.hero__veil{
-  position:absolute;inset:0;z-index:2;pointer-events:none;
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;
+  padding:calc(var(--nav-h) + 3rem) 0 4rem;overflow:hidden}
+#garden{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+/* left scrim keeps the headline legible over the hills; bottom scrim
+   hands off into the page ground */
+.hero__veil{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    radial-gradient(120% 85% at 50% 8%,transparent 30%,color-mix(in srgb,var(--ground) 78%,transparent) 100%),
-    linear-gradient(to bottom,transparent 55%,var(--ground) 99%);
-}
-.hero__inner{
-  position:relative;z-index:3;
-  width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);
-  transform-style:preserve-3d;
-}
+    linear-gradient(to right,var(--ground) 0%,
+      color-mix(in srgb,var(--ground) 74%,transparent) 32%,transparent 64%),
+    linear-gradient(to bottom,color-mix(in srgb,var(--ground) 50%,transparent) 0%,
+      transparent 26%,transparent 66%,var(--ground) 100%)}
+.hero__inner{position:relative;z-index:3;width:100%;max-width:var(--max);
+  margin-inline:auto;padding-inline:var(--gut)}
+.hero h1{font-size:var(--t-3xl);letter-spacing:-.022em;max-width:15ch;margin-bottom:1.4rem}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero__lede{max-width:44ch;color:var(--ink-2);font-size:var(--t-md);line-height:1.65;margin-bottom:2.2rem}
+.hero__proof{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;
+  margin-top:2.2rem;color:var(--ink-2)}
 
-.eyebrow{
-  display:flex;align-items:center;gap:.85rem;color:var(--ink-2);
-  margin-bottom:1.6rem;
-}
-.eyebrow::before{
-  content:"";width:clamp(28px,5vw,60px);height:1px;background:var(--liquor);flex:none;
-}
-
-.hero h1{
-  font-size:var(--t-3xl);
-  letter-spacing:-.022em;
-  max-width:15ch;
-  margin-bottom:1.5rem;
-}
-.hero h1 em{
-  font-style:italic;
-  color:var(--accent);
-}
-.hero__lede{
-  max-width:44ch;color:var(--ink-2);font-size:var(--t-md);line-height:1.65;
-  margin-bottom:2.4rem;
-}
-
-.cta-row{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
-.btn{
-  display:inline-flex;align-items:center;gap:.7rem;
-  min-height:52px;padding:0 1.7rem;border-radius:100px;
-  font-family:var(--mono);font-size:var(--t-xs);
-  letter-spacing:.16em;text-transform:uppercase;
-  transition:transform .3s var(--ease),background .3s var(--ease),
-             color .3s var(--ease),border-color .3s var(--ease);
-  will-change:transform;
-}
-.btn:active{transform:scale(.97)}
-.btn--solid{background:var(--forest);color:var(--paper);border:1px solid var(--forest)}
-.btn--solid:hover{background:var(--moss);border-color:var(--moss)}
-:root[data-theme="dark"] .btn--solid{background:var(--beige);color:var(--forest);border-color:var(--beige)}
-:root[data-theme="dark"] .btn--solid:hover{background:#fff;border-color:#fff}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .btn--solid{background:var(--beige);color:var(--forest);border-color:var(--beige)}
-  :root:not([data-theme="light"]) .btn--solid:hover{background:#fff;border-color:#fff}
-}
-.btn--ghost{border:1px solid var(--panel-line);color:var(--ink)}
-.btn--ghost:hover{border-color:var(--ink-2)}
-.btn svg{width:14px;height:14px;flex:none}
-
-/* floating 3D specimen card in hero */
-.specimen{
-  position:absolute;z-index:3;right:var(--gut);top:22%;
-  width:min(268px,34vw);
-  padding:1.15rem 1.25rem 1.05rem;
-  border:1px solid var(--panel-line);border-radius:4px;
-  background:var(--panel);
-  backdrop-filter:blur(18px) saturate(1.3);
-  -webkit-backdrop-filter:blur(18px) saturate(1.3);
-  box-shadow:0 30px 70px -30px var(--shadow);
-  transform-style:preserve-3d;
-}
-.specimen__t{
-  font-family:var(--display);font-size:var(--t-lg);
-  display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;
-  padding-bottom:.7rem;margin-bottom:.7rem;border-bottom:1px solid var(--panel-line);
-}
+.specimen{position:absolute;z-index:3;right:var(--gut);top:24%;width:min(262px,32vw);
+  padding:1.1rem 1.2rem;border:1px solid var(--panel-line);border-radius:6px;
+  background:var(--panel);backdrop-filter:blur(18px) saturate(1.3);
+  -webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 30px 70px -30px var(--shadow)}
+.specimen__t{font-family:var(--display);font-size:var(--t-lg);display:flex;align-items:baseline;
+  justify-content:space-between;gap:.5rem;padding-bottom:.65rem;margin-bottom:.65rem;
+  border-bottom:1px solid var(--panel-line)}
 .specimen__t i{font-style:italic;color:var(--ink-2);font-size:var(--t-sm)}
-.specimen dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem .9rem;margin:0}
+.specimen dl{display:grid;grid-template-columns:auto 1fr;gap:.42rem .9rem;margin:0}
 .specimen dt{color:var(--ink-2);font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase}
 .specimen dd{margin:0;font-family:var(--mono);font-size:var(--t-xs);text-align:right;font-variant-numeric:tabular-nums}
-@media (max-width:900px){.specimen{display:none}}
+@media (max-width:960px){.specimen{display:none}}
 
-.scroll-cue{
-  position:absolute;left:50%;bottom:1.9rem;z-index:4;
-  transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:.7rem;
-  color:var(--ink-2);
-}
-.scroll-cue__rail{
-  width:1px;height:52px;background:linear-gradient(var(--liquor),transparent);
-  position:relative;overflow:hidden;
-}
-.scroll-cue__rail::after{
-  content:"";position:absolute;left:0;top:0;width:1px;height:16px;
-  background:var(--liquor);
-  animation:drop 2.4s var(--ease) infinite;
-}
-@keyframes drop{0%{transform:translateY(-18px);opacity:0}
-  35%{opacity:1}100%{transform:translateY(52px);opacity:0}}
+.scroll-cue{position:absolute;left:50%;bottom:1.6rem;z-index:4;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--ink-2)}
+.scroll-cue__rail{width:1px;height:46px;background:linear-gradient(var(--liquor),transparent);
+  position:relative;overflow:hidden}
+.scroll-cue__rail::after{content:"";position:absolute;left:0;top:0;width:1px;height:14px;
+  background:var(--liquor);animation:drop 2.4s var(--ease) infinite}
+@keyframes drop{0%{transform:translateY(-16px);opacity:0}35%{opacity:1}100%{transform:translateY(46px);opacity:0}}
 
 /* ============================================================
-   3D scroll reveal — technique from 21st.dev Container Scroll
-   rotateX 20deg -> 0 driven by scroll progress (--p)
+   brewing sequence — leaves, pour, steep, ready
    ============================================================ */
-.arrival{
-  position:relative;
-  padding:clamp(3rem,9vw,7rem) 0 clamp(4rem,10vw,8rem);
-  perspective:1200px;
-  /* the card's rotateX flares wider than its box under perspective —
-     clip (not hidden) so no nested scroll container is created */
-  overflow-x:clip;
+/* no overflow:hidden here — it would become a scroll container and
+   silently break position:sticky on .brew__stage */
+.brew{position:relative;background:var(--forest);color:var(--beige)}
+.brew::before{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(60% 50% at 50% 30%,rgba(192,138,46,.14),transparent 65%)}
+.brew__rail{position:relative;z-index:2;height:400vh}
+.brew__stage{position:sticky;top:0;height:100svh;display:grid;
+  grid-template-columns:minmax(0,1fr);place-items:center;gap:1.5rem;
+  padding:var(--nav-h) var(--gut) 2rem;max-width:var(--max);margin-inline:auto}
+@media (min-width:940px){
+  .brew__stage{grid-template-columns:minmax(0,1fr) minmax(0,400px);align-items:center;place-items:center stretch}
 }
-.arrival__head{
-  text-align:center;max-width:34rem;margin:0 auto clamp(2rem,5vw,3.5rem);
-  transform:translateY(calc((1 - var(--p,0)) * 44px));
-  opacity:calc(.25 + var(--p,0) * .75);
-}
-.arrival__head h2{font-size:var(--t-2xl);letter-spacing:-.02em;margin-bottom:1rem}
-.arrival__head p{color:var(--ink-2);max-width:46ch;margin-inline:auto}
+.brew__copy{max-width:34rem;align-self:center}
+.brew__copy h2{color:var(--beige);font-size:var(--t-2xl);letter-spacing:-.02em;margin-bottom:1rem}
+.brew__copy>p{color:color-mix(in srgb,var(--beige) 70%,transparent);max-width:44ch}
+.brew__phases{margin-top:1.8rem;display:grid;gap:0}
+.brew__phase{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding:.85rem 0;
+  border-top:1px solid rgba(227,213,188,.16);opacity:.32;transition:opacity .5s var(--ease)}
+.brew__phase:last-child{border-bottom:1px solid rgba(227,213,188,.16)}
+.brew__phase[data-on="1"]{opacity:1}
+.brew__phase b{font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.16em;
+  color:var(--liquor);padding-top:.2rem}
+.brew__phase h3{font-size:var(--t-md);color:var(--beige);font-family:var(--body);
+  font-weight:600;margin-bottom:.2rem}
+.brew__phase p{font-size:var(--t-sm);color:color-mix(in srgb,var(--beige) 68%,transparent);line-height:1.55}
 
-.arrival__card{
-  --p:0;
-  max-width:var(--max);
-  margin-inline:auto;
-  width:calc(100% - var(--gut) * 2);
-  aspect-ratio:16/9;
-  border-radius:18px;
-  padding:.55rem;
-  background:linear-gradient(160deg,var(--moss),var(--forest));
-  border:1px solid color-mix(in srgb,var(--sage) 30%,transparent);
-  transform:
-    rotateX(calc((1 - var(--p)) * 22deg))
-    scale(calc(1.04 - var(--p) * .04))
-    translateY(calc((1 - var(--p)) * -10px));
-  transform-origin:50% 0%;
-  box-shadow:
-    0 9px 20px rgba(0,0,0,.28),
-    0 37px 37px rgba(0,0,0,.24),
-    0 84px 50px rgba(0,0,0,.14),
-    0 149px 60px rgba(0,0,0,.05);
-  will-change:transform;
-}
-.arrival__screen{
-  position:relative;height:100%;width:100%;
-  border-radius:13px;overflow:hidden;
-  background:var(--forest);
-  display:grid;place-items:center;
-}
-/* layered "tea garden" terraces built from gradients — no external assets */
-.ridge{
-  position:absolute;left:-6%;right:-6%;
-  background:linear-gradient(to top,var(--c1),var(--c2));
-  border-radius:50% 50% 0 0 / 22% 22% 0 0;
-  transform:translateY(calc(var(--depth) * (1 - var(--p,0)) * 34px));
-}
-.ridge--1{bottom:0;height:34%;--c1:#0A1A12;--c2:#153524;--depth:0.4}
-.ridge--2{bottom:20%;height:34%;--c1:#153524;--c2:#24503A;--depth:0.9}
-.ridge--3{bottom:38%;height:32%;--c1:#24503A;--c2:#3A6B4E;--depth:1.5}
-.ridge--4{bottom:54%;height:30%;--c1:#3A6B4E;--c2:#5E8A6C;--depth:2.2}
-.sun{
-  position:absolute;top:12%;left:50%;width:110px;height:110px;
-  transform:translateX(-50%);border-radius:50%;
-  background:radial-gradient(circle,#F0E2C0,#C08A2E 62%,transparent 72%);
-  filter:blur(6px);opacity:.75;
-}
-.arrival__screen figcaption{
-  position:relative;z-index:5;text-align:center;color:var(--beige);
-  padding:1rem;
-}
-.arrival__screen figcaption b{
-  display:block;font-family:var(--display);font-weight:400;
-  font-size:clamp(1.5rem,3.6vw,2.6rem);letter-spacing:-.01em;margin-bottom:.5rem;
-}
-.arrival__screen figcaption span{color:color-mix(in srgb,var(--beige) 72%,transparent)}
+.cup-stage{position:relative;width:min(330px,80vw);height:400px;justify-self:center;align-self:center}
+.pour{position:absolute;left:50%;top:24px;width:7px;height:118px;margin-left:-3.5px;z-index:1;
+  border-radius:4px;transform-origin:50% 0;
+  background:linear-gradient(to bottom,rgba(240,232,208,0),rgba(226,214,180,.9) 34%,rgba(200,178,128,.75));
+  opacity:var(--pour,0);transform:scaleY(var(--pourS,0))}
+.steam{position:absolute;left:50%;top:22px;width:170px;height:130px;margin-left:-85px;
+  z-index:4;pointer-events:none;opacity:var(--steam,0)}
+.steam i{position:absolute;bottom:0;width:54px;height:54px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,224,200,.36),transparent 68%);filter:blur(9px);
+  animation:rise 5.5s ease-in-out infinite}
+.steam i:nth-child(1){left:10px;animation-delay:0s}
+.steam i:nth-child(2){left:58px;animation-delay:-1.9s;transform:scale(1.2)}
+.steam i:nth-child(3){left:104px;animation-delay:-3.6s}
+@keyframes rise{0%{transform:translateY(20px) scale(.7);opacity:0}
+  40%{opacity:.85}100%{transform:translateY(-92px) scale(1.5);opacity:0}}
+
+.cup{position:absolute;left:50%;bottom:34px;width:222px;height:250px;margin-left:-111px;z-index:3}
+.cup__glass{position:absolute;inset:0;border-radius:10px 10px 72px 72px/8px 8px 46px 46px;
+  border:2px solid rgba(227,213,188,.42);border-top-color:rgba(227,213,188,.66);
+  background:linear-gradient(105deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 42%,rgba(255,255,255,.09));
+  overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.3),0 26px 50px -22px rgba(0,0,0,.6)}
+.cup__liquid{position:absolute;left:0;right:0;bottom:0;height:calc(var(--fill,0) * 100%);
+  background:var(--liq,rgba(226,220,196,.34));box-shadow:inset 0 8px 18px rgba(0,0,0,.2)}
+.cup__liquid::before{content:"";position:absolute;left:-10%;right:-10%;top:-6px;height:12px;
+  border-radius:50%;background:color-mix(in srgb,var(--liq,#E2DCC4) 76%,#ffffff)}
+.cup__leaf{position:absolute;top:0;left:0;width:14px;height:21px;border-radius:60% 8% 60% 8%;
+  background:linear-gradient(150deg,#6E9B7B,#24503A);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.cup__shine{position:absolute;left:15px;top:16px;width:18px;height:62%;border-radius:100px;
+  background:linear-gradient(rgba(255,255,255,.3),transparent);filter:blur(2px);z-index:5}
+.cup__saucer{position:absolute;left:50%;bottom:16px;width:288px;height:26px;margin-left:-144px;
+  border-radius:50%;background:linear-gradient(#1B3D2C,#0A1810);
+  box-shadow:0 16px 30px -12px rgba(0,0,0,.7);z-index:1}
+.brew__meter{margin-top:1.4rem;display:flex;align-items:center;gap:.9rem;
+  color:color-mix(in srgb,var(--beige) 66%,transparent)}
+.brew__bar{flex:1;height:2px;background:rgba(227,213,188,.22);border-radius:2px;
+  overflow:hidden;max-width:220px}
+.brew__bar i{display:block;height:100%;width:calc(var(--bp,0) * 100%);background:var(--liquor)}
 
 /* ============================================================
-   ticker
+   ticker / gardens / pouch / close
    ============================================================ */
-.ticker{
-  border-block:1px solid var(--rule);
-  padding:1.05rem 0;overflow:hidden;
+.ticker{border-block:1px solid var(--rule);padding:1rem 0;overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-}
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .ticker__track{display:flex;width:max-content;animation:slide 46s linear infinite}
 .ticker:hover .ticker__track{animation-play-state:paused}
 @keyframes slide{to{transform:translateX(-50%)}}
-.ticker__track span{
-  display:inline-flex;align-items:center;gap:2.6rem;
-  padding-right:2.6rem;color:var(--ink-2);
-  font-family:var(--mono);font-size:var(--t-xs);
-  letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
-}
+.ticker__track span{display:inline-flex;align-items:center;gap:2.4rem;padding-right:2.4rem;
+  color:var(--ink-2);font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.16em;
+  text-transform:uppercase;white-space:nowrap}
 .ticker__track span::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--liquor)}
 
-/* ============================================================
-   section furniture
-   ============================================================ */
-.sec{padding:clamp(4.5rem,11vw,9rem) 0}
-.sec__head{
-  display:grid;gap:1.4rem;
-  grid-template-columns:minmax(0,1fr);
-  margin-bottom:clamp(2.5rem,6vw,4rem);
-}
-@media (min-width:900px){
-  .sec__head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:3rem}
-}
+.sec__head{display:grid;gap:1.3rem;grid-template-columns:minmax(0,1fr);
+  margin-bottom:clamp(2.2rem,5vw,3.5rem)}
+@media (min-width:900px){.sec__head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:3rem}}
 .sec__head h2{font-size:var(--t-2xl);letter-spacing:-.02em;max-width:16ch}
 .sec__head p{color:var(--ink-2);max-width:44ch}
 
-.reveal{
-  opacity:0;transform:translateY(26px);
-  transition:opacity .9s var(--ease),transform .9s var(--ease);
-}
-.reveal.in{opacity:1;transform:none}
-
-/* ============================================================
-   origin — 3D parallax plates
-   ============================================================ */
 .origin{background:var(--ground-2);border-block:1px solid var(--rule)}
-.plates{
-  display:grid;gap:clamp(1rem,2.5vw,1.5rem);
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
-  perspective:1000px;
-}
-.plate{
-  --d:0;
-  position:relative;aspect-ratio:3/4;border-radius:6px;overflow:hidden;
-  border:1px solid var(--panel-line);
-  background:linear-gradient(165deg,var(--a),var(--b));
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:1.35rem;
-  color:var(--beige);
-  transform:translateY(calc(var(--d) * (var(--q,0) - .5) * -46px)) translateZ(0);
-  box-shadow:0 24px 50px -26px var(--shadow);
-  will-change:transform;
-}
+.plates{display:grid;gap:clamp(1rem,2.4vw,1.4rem);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));perspective:1000px}
+.plate{--d:0;position:relative;aspect-ratio:3/4;border-radius:8px;overflow:hidden;
+  border:1px solid var(--panel-line);background:linear-gradient(165deg,var(--a),var(--b));
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.3rem;color:var(--beige);
+  transform:translateY(calc(var(--d) * (var(--q,.5) - .5) * -42px));
+  box-shadow:0 24px 50px -26px var(--shadow);will-change:transform}
 .plate:nth-child(1){--a:#3A6B4E;--b:#12291F;--d:1}
 .plate:nth-child(2){--a:#24503A;--b:#0C1C15;--d:1.7}
 .plate:nth-child(3){--a:#5E8A6C;--b:#1D4030;--d:1.2}
 .plate:nth-child(4){--a:#2F5D45;--b:#0A1A12;--d:2}
-.plate__n{
-  font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.16em;
-  color:color-mix(in srgb,var(--beige) 62%,transparent);margin-bottom:.6rem;
-}
-.plate h3{font-size:var(--t-lg);color:var(--beige);margin-bottom:.4rem}
-.plate p{font-size:var(--t-sm);color:color-mix(in srgb,var(--beige) 74%,transparent);line-height:1.55}
+.plate__n{font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.16em;
+  color:color-mix(in srgb,var(--beige) 68%,transparent);margin-bottom:.55rem}
+.plate h3{font-size:var(--t-lg);color:var(--beige);margin-bottom:.35rem}
+.plate p{font-size:var(--t-sm);color:color-mix(in srgb,var(--beige) 78%,transparent);line-height:1.55}
 
-/* ============================================================
-   collection — 3D tilt cards
-   ============================================================ */
-.grid{
-  display:grid;gap:clamp(1.1rem,2.6vw,1.75rem);
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
-}
-/* four lots, one row — never orphan the last card */
-@media (min-width:1040px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.tea{
-  perspective:900px;
-}
-.tea__in{
-  position:relative;height:100%;
-  display:flex;flex-direction:column;
-  border:1px solid var(--panel-line);border-radius:8px;
-  background:var(--panel);
-  padding:1.4rem;
-  transform-style:preserve-3d;
-  transition:transform .45s var(--ease),border-color .45s var(--ease),
-             box-shadow .45s var(--ease);
-  will-change:transform;
-}
-.tea:hover .tea__in{border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 34px 60px -34px var(--shadow)}
-.tea__swatch{
-  height:132px;border-radius:5px;margin-bottom:1.15rem;
-  background:radial-gradient(90% 120% at 30% 18%,var(--s1),var(--s2));
-  position:relative;overflow:hidden;
-  transform:translateZ(34px);
-}
-.tea__swatch::after{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(52% 52% at 68% 78%,rgba(255,255,255,.28),transparent 70%);
-}
-.tea:nth-child(1) .tea__swatch{--s1:#A9C48C;--s2:#4A7C5D}
-.tea:nth-child(2) .tea__swatch{--s1:#E0B457;--s2:#8A5A16}
-.tea:nth-child(3) .tea__swatch{--s1:#6B5237;--s2:#20140A}
-.tea:nth-child(4) .tea__swatch{--s1:#F0E6CC;--s2:#B9A87E}
-.tea__top{
-  display:flex;align-items:baseline;justify-content:space-between;gap:.75rem;
-  margin-bottom:.35rem;transform:translateZ(22px);
-}
-.tea__top h3{font-size:var(--t-lg)}
-.tea__type{color:var(--ink-2)}
-.tea__desc{
-  color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;
-  margin-bottom:1.1rem;transform:translateZ(14px);
-}
-.tea__meta{
-  margin-top:auto;display:grid;gap:.4rem;
-  padding-top:1rem;border-top:1px solid var(--panel-line);
-  transform:translateZ(14px);
-}
-.tea__meta div{display:flex;justify-content:space-between;gap:1rem}
-.tea__meta dt{color:var(--ink-2)}
-.tea__meta dd{margin:0;font-variant-numeric:tabular-nums}
-.tea__buy{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  margin-top:1.15rem;transform:translateZ(26px);
-}
-.tea__price{font-family:var(--display);font-size:var(--t-xl);font-variant-numeric:tabular-nums}
-.tea__add{
-  min-height:44px;padding:0 1.15rem;border-radius:100px;
-  border:1px solid var(--panel-line);
-  font-family:var(--mono);font-size:var(--t-xs);
-  letter-spacing:.14em;text-transform:uppercase;
-  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
-}
-.tea__add:hover{background:var(--accent);border-color:var(--accent);color:var(--ground)}
+.pouch-sec{background:var(--forest);color:var(--beige);position:relative;overflow:hidden}
+.pouch-sec::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(65% 55% at 22% 40%,rgba(192,138,46,.15),transparent 62%)}
+.pouch-sec .wrap{position:relative;z-index:2}
+.pouch-grid{display:grid;gap:clamp(2.5rem,6vw,4.5rem);align-items:center;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.pouch-grid{grid-template-columns:minmax(0,400px) minmax(0,1fr)}}
+.pouch-sec h2{color:var(--beige);font-size:var(--t-2xl);letter-spacing:-.02em;max-width:15ch;margin-bottom:1.1rem}
+.pouch-sec p.lede{color:color-mix(in srgb,var(--beige) 72%,transparent);max-width:46ch}
+.pouch-facts{list-style:none;margin:1.9rem 0 0;padding:0;display:grid;gap:1.1rem}
+.pouch-facts li{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start}
+.pouch-facts svg{width:18px;height:18px;color:var(--liquor);margin-top:3px;flex:none}
+.pouch-facts b{display:block;font-weight:600;font-size:var(--t-sm);margin-bottom:.15rem}
+.pouch-facts span{font-size:var(--t-sm);color:color-mix(in srgb,var(--beige) 68%,transparent);line-height:1.55}
 
-/* ============================================================
-   ritual — dark committed band + scroll-driven 3D tin
-   ============================================================ */
-.ritual{
-  background:var(--forest);color:var(--beige);
-  position:relative;overflow:hidden;
-}
-.ritual::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(70% 55% at 78% 32%,rgba(192,138,46,.16),transparent 62%);
-}
-.ritual .wrap{position:relative;z-index:2}
-.ritual h2{color:var(--beige);font-size:var(--t-2xl);letter-spacing:-.02em;max-width:16ch}
-.ritual__lede{color:color-mix(in srgb,var(--beige) 68%,transparent);max-width:44ch}
-
-.ritual__body{
-  display:grid;gap:clamp(2.5rem,6vw,4.5rem);
-  align-items:center;
-  grid-template-columns:minmax(0,1fr);
-  margin-top:clamp(2.5rem,6vw,4rem);
-}
-@media (min-width:960px){
-  .ritual__body{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
-}
-
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.steps li{
-  display:grid;grid-template-columns:auto 1fr auto;gap:1.4rem;
-  padding:1.35rem 0;
-  border-top:1px solid rgba(227,213,188,.16);
-  align-items:start;
-}
-.steps li:last-child{border-bottom:1px solid rgba(227,213,188,.16)}
-.steps__n{
-  font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.16em;
-  color:var(--liquor);padding-top:.35rem;font-variant-numeric:tabular-nums;
-}
-.steps h3{font-size:var(--t-md);color:var(--beige);margin-bottom:.3rem;font-family:var(--body);font-weight:500}
-.steps p{font-size:var(--t-sm);color:color-mix(in srgb,var(--beige) 66%,transparent);line-height:1.6}
-.steps__spec{
-  font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.12em;
-  color:color-mix(in srgb,var(--beige) 64%,transparent); /* 5.0:1 on --forest */
-  white-space:nowrap;padding-top:.4rem;font-variant-numeric:tabular-nums;
-}
-@media (max-width:560px){.steps__spec{display:none}}
-
-/* 3D tin — real CSS cylinder, rotateY driven by scroll */
-.tin-stage{
-  display:grid;place-items:center;
-  perspective:1100px;
-  min-height:400px;
-}
-.tin{
-  --r:118px;
-  position:relative;
-  width:calc(var(--r) * 2);height:290px;
-  transform-style:preserve-3d;
-  transform:rotateX(-11deg) rotateY(calc(var(--spin,0) * 1deg));
-  will-change:transform;
-}
-/* flat tone per face — shading is applied per-face in JS from the face angle,
-   so the cylinder reads as one curved surface instead of stripes */
-.tin__face{
-  position:absolute;top:0;left:50%;
-  width:38px;height:100%;margin-left:-19px;
-  background:#2F5D45;
-  backface-visibility:hidden;
-}
-/* lid seam — one ring around the tin, drawn per face */
-.tin__face::after{
-  content:"";position:absolute;left:0;right:0;top:62px;height:1px;
-  background:rgba(0,0,0,.3);
-}
-.tin__cap{
-  position:absolute;left:50%;top:0;
-  width:calc(var(--r) * 2);height:calc(var(--r) * 2);
-  margin-left:calc(var(--r) * -1);margin-top:calc(var(--r) * -1);
-  border-radius:50%;
-  transform:rotateX(90deg) translateZ(0);
+.pouch-stage{display:grid;place-items:center;perspective:1200px;min-height:420px}
+.pouch{--w:190px;--h:250px;--d:58px;position:relative;width:var(--w);height:var(--h);
+  transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(calc(var(--spin,-22) * 1deg));
+  will-change:transform}
+.pouch__f{position:absolute;inset:0;backface-visibility:hidden;border-radius:3px 3px 7px 7px;
   background:
-    radial-gradient(circle at 40% 34%,#5E8A6C,#24503A 62%,#0E2018);
-  box-shadow:inset 0 0 34px rgba(0,0,0,.5);
-}
-.tin__cap--btm{top:100%;background:radial-gradient(circle at 50% 50%,#12291F,#050C08)}
-/* the label is printed ON the tin: lift it to the cylinder surface with
-   translateZ, or preserve-3d leaves it buried on the centre axis */
-.tin__label{
-  position:absolute;left:50%;top:50%;
-  width:190px;margin-left:-95px;
-  transform:translateY(-50%) translateZ(119px);
-  backface-visibility:hidden;
-  text-align:center;
-  pointer-events:none;
-}
-.tin__label b{
-  display:block;font-family:var(--display);font-weight:400;
-  font-size:1.5rem;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--beige);text-indent:.26em;
-}
-.tin__label i{
-  display:block;font-style:normal;
-  font-family:var(--mono);font-size:.625rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--liquor);margin-top:.55rem;
-}
-.tin__label hr{
-  border:0;height:1px;background:rgba(227,213,188,.32);
-  width:64px;margin:.75rem auto 0;
-}
-.tin-hint{
-  margin-top:1.75rem;text-align:center;
-  color:color-mix(in srgb,var(--beige) 62%,transparent);
-}
+    repeating-linear-gradient(92deg,rgba(60,42,18,.055) 0 1px,transparent 1px 5px),
+    linear-gradient(168deg,#CBB68C,#AB9165 52%,#8A7149);
+  box-shadow:inset 0 0 34px rgba(70,50,20,.3)}
+.pouch__f--front{transform:translateZ(29px)}
+.pouch__f--back{transform:rotateY(180deg) translateZ(29px)}
+.pouch__s{position:absolute;top:0;left:50%;width:58px;height:100%;margin-left:-29px;
+  border-radius:3px;backface-visibility:hidden;
+  background:linear-gradient(90deg,#6B5838,#8A7149 46%,#59492E)}
+.pouch__s--l{transform:rotateY(-90deg) translateZ(95px)}
+.pouch__s--r{transform:rotateY(90deg) translateZ(95px)}
+.pouch__crimp{position:absolute;left:-7px;right:-7px;top:-17px;height:27px;border-radius:3px;
+  background:repeating-linear-gradient(90deg,#B8A279 0 6px,#9C8560 6px 12px);
+  transform:translateZ(30px);box-shadow:0 3px 9px rgba(0,0,0,.4)}
+.pouch__crimp::after{content:"";position:absolute;left:9px;right:9px;top:12px;height:1px;
+  background:repeating-linear-gradient(90deg,rgba(38,26,8,.6) 0 5px,transparent 5px 10px)}
+.pouch__label{position:absolute;left:50%;top:46%;width:148px;margin-left:-74px;
+  transform:translateY(-50%) translateZ(31px);text-align:center;padding:.85rem .5rem;
+  border-radius:3px;background:rgba(18,41,31,.94);border:1px solid rgba(227,213,188,.3);
+  backface-visibility:hidden}
+.pouch__label b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--beige);text-indent:.26em}
+.pouch__label hr{border:0;height:1px;background:rgba(227,213,188,.34);width:46px;margin:.5rem auto}
+.pouch__label i{display:block;font-style:normal;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--liquor)}
+.pouch-hint{margin-top:1.5rem;text-align:center;color:color-mix(in srgb,var(--beige) 62%,transparent)}
 
-/* ============================================================
-   closing CTA + footer
-   ============================================================ */
 .close{text-align:center}
-.close h2{font-size:var(--t-3xl);letter-spacing:-.025em;max-width:15ch;margin:0 auto 1.3rem}
+.close h2{font-size:var(--t-3xl);letter-spacing:-.025em;max-width:15ch;margin:0 auto 1.2rem}
 .close h2 em{font-style:italic;color:var(--accent)}
-.close p{color:var(--ink-2);max-width:42ch;margin:0 auto 2.4rem}
-.signup{
-  display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;
-  max-width:30rem;margin-inline:auto;
-}
-.signup label{
-  position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;
-}
-.signup input{
-  flex:1 1 15rem;min-height:52px;padding:0 1.25rem;
-  border:1px solid var(--panel-line);border-radius:100px;
-  background:var(--panel);color:var(--ink);
-  font-family:var(--body);font-size:var(--t-base);
-  transition:border-color .3s var(--ease);
-}
+.close p.close__lede{color:var(--ink-2);max-width:42ch;margin:0 auto 2.2rem}
+.signup{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;max-width:31rem;margin-inline:auto}
+.signup input{flex:1 1 15rem;min-height:54px;padding:0 1.25rem;border:1px solid var(--panel-line);
+  border-radius:100px;background:var(--panel);color:var(--ink);font-family:var(--body);font-size:var(--t-base)}
 .signup input::placeholder{color:var(--ink-2)}
 .signup input:focus{border-color:var(--accent)}
-.signup__note{
-  margin-top:1rem;color:var(--ink-2);
-  font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.1em;
-}
+.signup__note{margin-top:1rem;color:var(--ink-2)}
 
-.foot{border-top:1px solid var(--rule);padding:3rem 0 2.5rem}
-.foot__grid{
-  display:flex;flex-wrap:wrap;gap:1.5rem 3rem;
-  align-items:baseline;justify-content:space-between;
-}
-.foot__mark{font-family:var(--display);font-size:var(--t-md);letter-spacing:.28em;text-transform:uppercase}
-.foot__links{display:flex;flex-wrap:wrap;gap:1.5rem}
-.foot__links a{color:var(--ink-2);font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;transition:color .3s var(--ease)}
-.foot__links a:hover{color:var(--ink)}
-.foot__legal{color:var(--ink-2);width:100%;padding-top:1.75rem;margin-top:.5rem;border-top:1px solid var(--panel-line)}
-
-/* ============================================================
-   reduced motion
-   ============================================================ */
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{
-    animation-duration:.01ms !important;animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-  }
-  .arrival__card{transform:none !important}
-  .arrival__head{transform:none !important;opacity:1 !important}
   .plate{transform:none !important}
-  .tin{transform:rotateX(-11deg) rotateY(-24deg) !important}
-  .ridge{transform:none !important}
-  .reveal{opacity:1;transform:none}
+  .pouch{transform:rotateX(-8deg) rotateY(-22deg) !important}
+  .brew__rail{height:auto}
+  .brew__stage{position:static;height:auto;padding-block:4rem}
+  .steam i{animation:none}
 }
 </style>
+</head>
+<body>
 
-<nav class="nav" id="nav">
-  <div class="nav__mark">
-    <strong>Verdant</strong>
-    <span class="mono">Est. 2016</span>
-  </div>
+<nav class="nav">
+  <a class="nav__mark" href="index.html"><strong>Verdant</strong><span class="mono">Est. 2016</span></a>
   <div class="nav__links">
-    <a href="#arrival">Gardens</a>
-    <a href="#origin">Sourcing</a>
-    <a href="#collection">Collection</a>
-    <a href="#ritual">The Ritual</a>
+    <a href="collection.html">Collection</a>
+    <a href="product.html">Misty Ridge</a>
+    <a href="index.html#origin">Our Gardens</a>
+    <a href="index.html#brew">The Ritual</a>
   </div>
-  <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
-    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-  </button>
+  <div class="nav__end">
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Switch light or dark theme">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <a class="icon-btn" href="checkout.html" aria-label="View your order">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-pip" data-n="0">0</span>
+    </a>
+  </div>
 </nav>
 
-<header class="hero" id="hero">
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <canvas id="leaves" aria-hidden="true"></canvas>
+<header class="hero">
+  <canvas id="garden" aria-hidden="true"></canvas>
   <div class="hero__veil"></div>
 
-  <div class="hero__inner" id="heroInner">
+  <div class="hero__inner">
     <p class="eyebrow mono">Single origin · Whole leaf · Harvest dated</p>
     <h1>Tea that remembers the <em>mountain</em> it came from.</h1>
     <p class="hero__lede">
-      We buy one lot at a time, direct from the family that picked it, and we print
-      the altitude and the harvest date on every tin. If a leaf is good enough to
+      We buy one lot at a time, direct from the family that picked it, and we stamp the
+      altitude and harvest date onto every handmade pouch. If a leaf is good enough to
       keep its name, it is good enough to tell you where it grew.
     </p>
     <div class="cta-row">
-      <a class="btn btn--solid" href="#collection">
+      <a class="btn3 btn3--gold" href="collection.html">
         Shop the collection
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a class="btn btn--ghost" href="#ritual">How we brew it</a>
+      <a class="btn3 btn3--ghost" href="#brew">Watch it brew</a>
     </div>
+    <p class="hero__proof mono">
+      <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg></span>
+      4.9 from 1,204 drinkers · Free shipping over ₹2,000
+    </p>
   </div>
 
-  <aside class="specimen" id="specimen" aria-label="Current lot">
+  <aside class="specimen" aria-label="Current lot">
     <div class="specimen__t">Misty Ridge <i>Lot 04</i></div>
     <dl>
       <dt>Garden</dt><dd>Huangshan, AH</dd>
       <dt>Altitude</dt><dd>1,240 m</dd>
       <dt>Picked</dt><dd>05 Apr 2026</dd>
       <dt>Oxidation</dt><dd>0 %</dd>
-      <dt>Remaining</dt><dd>62 tins</dd>
+      <dt>Remaining</dt><dd>62 pouches</dd>
     </dl>
   </aside>
 
-  <div class="scroll-cue">
-    <span class="mono">Descend</span>
-    <span class="scroll-cue__rail"></span>
-  </div>
+  <div class="scroll-cue"><span class="mono">Descend</span><span class="scroll-cue__rail"></span></div>
 </header>
 
-<section class="arrival" id="arrival">
-  <div class="arrival__head" id="arrivalHead">
-    <h2>Two thousand metres, before the mist burns off</h2>
-    <p>
-      Scroll to drop into the terraces at Huangshan, where our spring green
-      is picked in the four hours between first light and full sun.
-    </p>
-  </div>
+<section class="brew" id="brew">
+  <div class="brew__rail" id="brewRail">
+    <div class="brew__stage">
+      <div class="brew__copy">
+        <p class="eyebrow mono">The ritual</p>
+        <h2>Five grams, eighty degrees, ninety seconds.</h2>
+        <p>Scroll, and the leaf does the rest — dry into the glass, water off the boil, then
+          the slow turn from clear to gold that tells you it is ready.</p>
 
-  <figure class="arrival__card" id="arrivalCard">
-    <div class="arrival__screen">
-      <span class="sun"></span>
-      <span class="ridge ridge--4"></span>
-      <span class="ridge ridge--3"></span>
-      <span class="ridge ridge--2"></span>
-      <span class="ridge ridge--1"></span>
-      <figcaption>
-        <b>Huangshan, Anhui</b>
-        <span class="mono">30.13° N · 118.16° E · 1,240 m</span>
-      </figcaption>
+        <div class="brew__phases">
+          <div class="brew__phase" data-phase="0"><b>01</b>
+            <div><h3>Dry leaf</h3><p>Five grams of whole leaf, unbroken. It should smell of chestnut before it ever meets water.</p></div></div>
+          <div class="brew__phase" data-phase="1"><b>02</b>
+            <div><h3>The pour</h3><p>150 ml at 80 °C, poured down the side of the glass so the leaf is never scalded.</p></div></div>
+          <div class="brew__phase" data-phase="2"><b>03</b>
+            <div><h3>The steep</h3><p>Ninety seconds. The leaf opens, sinks, and the water turns the colour of pale honey.</p></div></div>
+          <div class="brew__phase" data-phase="3"><b>04</b>
+            <div><h3>Ready</h3><p>Chestnut, cut grass, a sweetness that arrives late. Four more steeps left in the leaf.</p></div></div>
+        </div>
+
+        <div class="brew__meter">
+          <span class="mono" id="brewClock">0 s</span>
+          <span class="brew__bar" id="brewBar"><i></i></span>
+          <span class="mono" id="brewTemp">80 °C</span>
+        </div>
+      </div>
+
+      <div class="cup-stage">
+        <div class="pour" id="pour"></div>
+        <div class="steam" id="steam"><i></i><i></i><i></i></div>
+        <div class="cup__saucer"></div>
+        <div class="cup">
+          <div class="cup__glass" id="glass">
+            <div class="cup__liquid" id="liquid"></div>
+            <div class="cup__shine"></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </figure>
+  </div>
 </section>
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
-    <span>Whole leaf only<span></span></span>
-    <span>Harvest dated<span></span></span>
-    <span>Direct trade<span></span></span>
-    <span>No blends, no dust<span></span></span>
-    <span>Nitrogen sealed<span></span></span>
-    <span>Cupped twice before release<span></span></span>
-    <span>Whole leaf only<span></span></span>
-    <span>Harvest dated<span></span></span>
-    <span>Direct trade<span></span></span>
-    <span>No blends, no dust<span></span></span>
-    <span>Nitrogen sealed<span></span></span>
-    <span>Cupped twice before release<span></span></span>
+    <span>Whole leaf only<span></span></span><span>Harvest dated<span></span></span>
+    <span>Direct trade<span></span></span><span>Handmade pouches<span></span></span>
+    <span>No blends, no dust<span></span></span><span>Cupped twice before release<span></span></span>
+    <span>Whole leaf only<span></span></span><span>Harvest dated<span></span></span>
+    <span>Direct trade<span></span></span><span>Handmade pouches<span></span></span>
+    <span>No blends, no dust<span></span></span><span>Cupped twice before release<span></span></span>
   </div>
 </div>
 
@@ -774,252 +340,187 @@ p{margin:0}
   <div class="wrap">
     <div class="sec__head reveal">
       <h2>Four gardens. Nothing in between.</h2>
-      <p>
-        Most tea passes through six hands before it reaches a shelf. Ours passes
-        through two — the family that grows it, and us. That is the whole supply chain,
-        and it is why we can tell you the name of the person who picked your tin.
-      </p>
+      <p>Most tea passes through six hands before it reaches a shelf. Ours passes through
+        two — the family that grows it, and us.</p>
     </div>
-
-    <div class="plates" id="plates">
-      <article class="plate">
-        <span class="plate__n mono">01 · Anhui, CN</span>
-        <h3>Huangshan</h3>
-        <p>Granite slopes at 1,240 m. Cloud cover slows the leaf and sweetens it.</p>
-      </article>
-      <article class="plate">
-        <span class="plate__n mono">02 · Alishan, TW</span>
-        <h3>Chiayi</h3>
-        <p>High mountain oolong, rolled by hand into pearls that open over four steeps.</p>
-      </article>
-      <article class="plate">
-        <span class="plate__n mono">03 · Yunnan, CN</span>
-        <h3>Menghai</h3>
-        <p>Old growth trees, some past two hundred years. Pressed and aged in Kunming.</p>
-      </article>
-      <article class="plate">
-        <span class="plate__n mono">04 · Fujian, CN</span>
-        <h3>Fuding</h3>
-        <p>Silver needle picked over eleven days in March. Sun withered, never fired.</p>
-      </article>
+    <div class="plates">
+      <article class="plate"><span class="plate__n mono">01 · Anhui, CN</span><h3>Huangshan</h3>
+        <p>Granite slopes at 1,240 m. Cloud cover slows the leaf and sweetens it.</p></article>
+      <article class="plate"><span class="plate__n mono">02 · Alishan, TW</span><h3>Chiayi</h3>
+        <p>High mountain oolong, rolled by hand into pearls that open over four steeps.</p></article>
+      <article class="plate"><span class="plate__n mono">03 · Yunnan, CN</span><h3>Menghai</h3>
+        <p>Old growth trees, some past two hundred years. Pressed and aged in Kunming.</p></article>
+      <article class="plate"><span class="plate__n mono">04 · Fujian, CN</span><h3>Fuding</h3>
+        <p>Silver needle picked over eleven days in March. Sun withered, never fired.</p></article>
     </div>
   </div>
 </section>
 
-<section class="sec" id="collection">
+<section class="sec pouch-sec">
+  <div class="wrap pouch-grid">
+    <div class="pouch-stage">
+      <div class="pouch" id="pouch">
+        <div class="pouch__s pouch__s--l"></div>
+        <div class="pouch__s pouch__s--r"></div>
+        <div class="pouch__f pouch__f--back"></div>
+        <div class="pouch__f pouch__f--front"></div>
+        <div class="pouch__crimp"></div>
+        <div class="pouch__label"><b>Verdant</b><hr><i>Misty Ridge · 50 g</i></div>
+      </div>
+      <p class="pouch-hint mono">Scroll to turn the pouch</p>
+    </div>
+
+    <div>
+      <p class="eyebrow mono">The pouch</p>
+      <h2>Folded, stitched and stamped by hand.</h2>
+      <p class="lede">No tins, no plastic tubs. Each pouch is folded from unbleached kraft,
+        lined with a food-safe foil barrier, crimped along the top and stitched shut by the
+        same four people in Mumbai who pack every order.</p>
+      <ul class="pouch-facts">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div><b>Foil lined, nitrogen flushed</b><span>Light and oxygen are what kill green tea. The barrier holds a lot at pick-day freshness for eighteen months unopened.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+          <div><b>Home compostable shell</b><span>Peel the foil liner and the kraft outer breaks down in a garden bin in about twelve weeks.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div><b>Stamped with the lot</b><span>Garden, altitude and pick date are hand-stamped on every pouch. No two lots carry the same stamp.</span></div>
+        </li>
+      </ul>
+      <div class="cta-row" style="margin-top:2rem">
+        <a class="btn3 btn3--gold" href="product.html">See a pouch up close</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
   <div class="wrap">
     <div class="sec__head reveal">
       <h2>This season's lots</h2>
-      <p>
-        Every tin carries its garden, altitude and pick date. When a lot is gone
-        it does not come back — the next harvest is a different tea.
-      </p>
+      <p>Every pouch carries its garden, altitude and pick date. When a lot is gone it does
+        not come back — the next harvest is a different tea.</p>
     </div>
-
-    <div class="grid" id="teaGrid">
-      <article class="tea reveal">
-        <div class="tea__in">
-          <div class="tea__swatch"></div>
-          <div class="tea__top">
-            <h3>Misty Ridge</h3>
-            <span class="tea__type mono">Green</span>
-          </div>
-          <p class="tea__desc">Chestnut and cut grass, with a sweetness that arrives late and stays. Forgiving at any temperature.</p>
-          <dl class="tea__meta mono">
-            <div><dt>Garden</dt><dd>Huangshan</dd></div>
-            <div><dt>Altitude</dt><dd>1,240 m</dd></div>
-            <div><dt>Picked</dt><dd>05 Apr 2026</dd></div>
-          </dl>
-          <div class="tea__buy">
-            <span class="tea__price">₹2,400</span>
-            <button class="tea__add" type="button">Add · 50g</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="tea reveal">
-        <div class="tea__in">
-          <div class="tea__swatch"></div>
-          <div class="tea__top">
-            <h3>Ember Gold</h3>
-            <span class="tea__type mono">Oolong</span>
-          </div>
-          <p class="tea__desc">Roasted stone fruit and honey. Hand rolled into pearls that unfurl across four generous steeps.</p>
-          <dl class="tea__meta mono">
-            <div><dt>Garden</dt><dd>Alishan</dd></div>
-            <div><dt>Altitude</dt><dd>1,600 m</dd></div>
-            <div><dt>Picked</dt><dd>18 May 2026</dd></div>
-          </dl>
-          <div class="tea__buy">
-            <span class="tea__price">₹3,200</span>
-            <button class="tea__add" type="button">Add · 50g</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="tea reveal">
-        <div class="tea__in">
-          <div class="tea__swatch"></div>
-          <div class="tea__top">
-            <h3>Deep Forest</h3>
-            <span class="tea__type mono">Pu-erh</span>
-          </div>
-          <p class="tea__desc">Damp cedar, dark cocoa, wet stone. Eight years in Kunming. The one to drink after dinner.</p>
-          <dl class="tea__meta mono">
-            <div><dt>Garden</dt><dd>Menghai</dd></div>
-            <div><dt>Altitude</dt><dd>1,480 m</dd></div>
-            <div><dt>Pressed</dt><dd>22 Mar 2018</dd></div>
-          </dl>
-          <div class="tea__buy">
-            <span class="tea__price">₹3,900</span>
-            <button class="tea__add" type="button">Add · 100g</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="tea reveal">
-        <div class="tea__in">
-          <div class="tea__swatch"></div>
-          <div class="tea__top">
-            <h3>First Light</h3>
-            <span class="tea__type mono">White</span>
-          </div>
-          <p class="tea__desc">Melon, hay and a little salt. Silver needle, sun withered on bamboo, never touched by fire.</p>
-          <dl class="tea__meta mono">
-            <div><dt>Garden</dt><dd>Fuding</dd></div>
-            <div><dt>Altitude</dt><dd>780 m</dd></div>
-            <div><dt>Picked</dt><dd>12 Mar 2026</dd></div>
-          </dl>
-          <div class="tea__buy">
-            <span class="tea__price">₹2,800</span>
-            <button class="tea__add" type="button">Add · 25g</button>
-          </div>
-        </div>
-      </article>
+    <div class="grid-teas" id="teaGrid"></div>
+    <div class="cta-row" style="justify-content:center;margin-top:2.6rem">
+      <a class="btn3 btn3--ghost" href="collection.html">View the full collection</a>
     </div>
   </div>
 </section>
 
-<section class="sec ritual" id="ritual">
+<section class="sec" style="background:var(--ground-2);border-block:1px solid var(--rule)">
   <div class="wrap">
-    <div class="sec__head">
-      <h2>Five steps, six minutes, no equipment worth arguing about</h2>
-      <p class="ritual__lede">
-        Good tea is mostly restraint. Use more leaf than feels right, less time
-        than you expect, and water that has gone off the boil.
-      </p>
+    <div class="sec__head reveal">
+      <h2>What drinkers say</h2>
+      <p>1,204 reviews across four lots, averaging 4.9. We publish the middling ones too.</p>
     </div>
-
-    <div class="ritual__body">
-      <ol class="steps">
-        <li>
-          <span class="steps__n">01</span>
-          <div>
-            <h3>Warm the vessel</h3>
-            <p>Rinse the pot and cups with hot water and tip it out. Cold porcelain steals heat from the first steep.</p>
-          </div>
-          <span class="steps__spec">30 s</span>
-        </li>
-        <li>
-          <span class="steps__n">02</span>
-          <div>
-            <h3>Measure by weight</h3>
-            <p>Five grams to 150 ml. Spoons lie — a rolled oolong and a needle white fill the same spoon at half the mass.</p>
-          </div>
-          <span class="steps__spec">5 g / 150 ml</span>
-        </li>
-        <li>
-          <span class="steps__n">03</span>
-          <div>
-            <h3>Wake the leaf</h3>
-            <p>A three second rinse for oolong and pu-erh. Discard it. Greens and whites skip this entirely.</p>
-          </div>
-          <span class="steps__spec">3 s</span>
-        </li>
-        <li>
-          <span class="steps__n">04</span>
-          <div>
-            <h3>Steep off the boil</h3>
-            <p>80 °C for green and white, 95 °C for oolong and pu-erh. Boiling water scorches delicate leaf and turns it bitter.</p>
-          </div>
-          <span class="steps__spec">80–95 °C</span>
-        </li>
-        <li>
-          <span class="steps__n">05</span>
-          <div>
-            <h3>Pour it all out</h3>
-            <p>Leave nothing in the pot. Leaf sitting in water keeps brewing, and the second cup pays for it.</p>
-          </div>
-          <span class="steps__spec">45 s</span>
-        </li>
-      </ol>
-
-      <div class="tin-stage">
-        <div class="tin" id="tin">
-          <div class="tin__cap"></div>
-          <div class="tin__cap tin__cap--btm"></div>
-          <div class="tin__label">
-            <b>Verdant</b>
-            <hr>
-            <i>Misty Ridge · 50 g</i>
-          </div>
-        </div>
-        <p class="tin-hint mono">Scroll to turn the tin</p>
-      </div>
+    <div class="quotes">
+      <figure class="quote reveal">
+        <span class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg></span>
+        <blockquote>"I have been drinking Huangshan green for twenty years and this is the first time I could taste the altitude. The second steep is better than the first."</blockquote>
+        <figcaption><b>Ananya R.</b><span class="mono">Bengaluru · Misty Ridge</span></figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <span class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg></span>
+        <blockquote>"The pouch arrived stamped 05 April. I opened it on the 19th. That gap is the entire pitch and they actually keep it."</blockquote>
+        <figcaption><b>Vikram S.</b><span class="mono">Mumbai · Ember Gold</span></figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <span class="stars" aria-label="4 out of 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg></span>
+        <blockquote>"Deep Forest is superb. Docking a star because it sold out before I could reorder — please press more of the 2018."</blockquote>
+        <figcaption><b>Meera J.</b><span class="mono">Pune · Deep Forest</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
 <section class="sec close">
   <div class="wrap">
+    <div class="trust reveal" style="margin-bottom:clamp(3rem,7vw,5rem)">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <div><b>Harvest guarantee</b><p>Stamped pick date on every pouch, or your money back.</p></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <div><b>Free shipping over ₹2,000</b><p>Dispatched from Mumbai within 24 hours, all India.</p></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        <div><b>Brew it, or return it</b><p>Open the pouch. If it is not right, we refund it.</p></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <div><b>Secure checkout</b><p>UPI, cards and netbanking. Encrypted end to end.</p></div>
+      </div>
+    </div>
+
     <h2 class="reveal">One lot, <em>once</em>. Hear about it first.</h2>
-    <p class="reveal">
-      We release four to six lots a year. Subscribers see them a week early,
-      which is usually the difference between drinking a tea and reading about it.
-    </p>
+    <p class="close__lede reveal">We release four to six lots a year. Subscribers see them a week
+      early, which is usually the difference between drinking a tea and reading about it.</p>
     <form class="signup reveal" id="signup" novalidate>
-      <label for="email">Email address</label>
+      <label class="sr" for="email">Email address</label>
       <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-      <button class="btn btn--solid" type="submit" id="signupBtn">Notify me</button>
+      <button class="btn3 btn3--gold" type="submit">Notify me</button>
     </form>
-    <p class="signup__note reveal" id="signupNote" role="status">Four to six emails a year. Nothing else, ever.</p>
+    <p class="signup__note mono reveal" id="signupNote" role="status">Four to six emails a year. Nothing else, ever.</p>
   </div>
 </section>
 
 <footer class="foot">
-  <div class="wrap foot__grid">
-    <span class="foot__mark">Verdant</span>
-    <nav class="foot__links" aria-label="Footer">
-      <a href="#origin">Sourcing</a>
-      <a href="#collection">Collection</a>
-      <a href="#ritual">Brewing</a>
-      <a href="#arrival">Gardens</a>
-    </nav>
-    <p class="foot__legal mono">© 2026 Verdant Tea Co. · Mumbai · Shipping across India</p>
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__mark">Verdant</div>
+        <p class="foot__blurb">Single origin, whole leaf tea in handmade pouches. Four gardens,
+          four to six lots a year, packed in Mumbai.</p>
+      </div>
+      <div><h4>Shop</h4><ul>
+        <li><a href="collection.html">All lots</a></li>
+        <li><a href="product.html">Misty Ridge</a></li>
+        <li><a href="collection.html#vessels">Vessels &amp; tools</a></li>
+        <li><a href="checkout.html">Your order</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="index.html#brew">How to brew</a></li>
+        <li><a href="index.html#origin">Our gardens</a></li>
+        <li><a href="product.html#why">Why single origin</a></li>
+        <li><a href="product.html#faq">Questions</a></li>
+      </ul></div>
+      <div><h4>Care</h4><ul>
+        <li><a href="checkout.html">Shipping</a></li>
+        <li><a href="product.html#faq">Returns</a></li>
+        <li><a href="index.html#origin">Sourcing policy</a></li>
+        <li><a href="mailto:hello@verdant.tea">hello@verdant.tea</a></li>
+      </ul></div>
+    </div>
+    <div class="foot__legal mono">
+      <span>© 2026 Verdant Tea Co. · Mumbai</span>
+      <span>Shipping across India · GSTIN 27AABCV1234F1Z5</span>
+    </div>
   </div>
 </footer>
 
+<div class="toast" data-on="0" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+  <span></span>
+</div>
+
+<script src="assets/site.js"></script>
 <script>
 (function(){
   "use strict";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var root = document.documentElement;
 
-  /* ---------- theme toggle ---------- */
-  var btn = document.getElementById("themeBtn");
-  btn.addEventListener("click", function(){
-    var dark = getComputedStyle(root).getPropertyValue("--dark-mode").trim() === "1";
-    root.setAttribute("data-theme", dark ? "light" : "dark");
-  });
-
-  /* ---------- nav shadow ---------- */
-  var nav = document.getElementById("nav");
-
-  /* ---------- WebGL hero: flowing tea-liquor field ---------- */
+  /* ---------------- WebGL: misty terraced tea hills ---------------- */
   (function(){
-    var cv = document.getElementById("gl");
+    var cv = document.getElementById("garden");
     var gl = cv.getContext("webgl", {antialias:false, alpha:false});
-    if(!gl){ cv.style.background = "linear-gradient(160deg,var(--ground-2),var(--ground))"; return; }
+    if(!gl){ cv.style.background="linear-gradient(#cfe0d0,#2F5D45)"; return; }
 
     var VS = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
     var FS = [
@@ -1028,280 +529,217 @@ p{margin:0}
       "float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}",
       "float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);",
       " return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}",
-      "float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<6;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}",
+      "float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p*=2.02;a*=.5;}return v;}",
       "void main(){",
       " vec2 uv=gl_FragCoord.xy/u_res.xy;",
-      " vec2 q=vec2(uv.x*(u_res.x/u_res.y),uv.y);",
-      " float t=u_t*.035;",
-      /* domain warp -> organic steam / liquor swirl */
-      " vec2 w=vec2(fbm(q*2.1+vec2(t,t*.6)),fbm(q*2.1+vec2(4.7-t*.5,1.3+t*.4)));",
-      " float f=fbm(q*2.6+w*1.9+vec2(0.,-t*1.4));",
-      " f=smoothstep(.18,.92,f);",
-      /* forest green -> beige ramp, per theme */
-      " vec3 dA=vec3(.031,.086,.063), dB=vec3(.106,.243,.176), dC=vec3(.309,.486,.372);",
-      " vec3 lA=vec3(.964,.945,.906), lB=vec3(.890,.836,.737), lC=vec3(.404,.560,.443);",
-      " vec3 A=mix(lA,dA,u_dark), B=mix(lB,dB,u_dark), C=mix(lC,dC,u_dark);",
-      " vec3 col=mix(A,B,f);",
-      " col=mix(col,C,smoothstep(.55,1.,f)*.72);",
-      /* amber liquor glow, strongest near the horizon band */
-      " float g=smoothstep(.35,.0,abs(uv.y-.36-w.y*.12));",
-      " col+=vec3(.752,.541,.180)*g*(.10+.10*u_dark);",
-      /* settle toward the page ground as you scroll away */
-      " col=mix(col,mix(vec3(.964,.945,.906),vec3(.047,.110,.082),u_dark),clamp(u_scr,0.,1.)*.55);",
-      " col+=(h(gl_FragCoord.xy+u_t)-.5)*.016;",  /* dither, kills banding */
+      " float ar=u_res.x/u_res.y;",
+      " float t=u_t*.02;",
+      " vec3 skyTop=mix(vec3(.780,.836,.800),vec3(.043,.098,.078),u_dark);",
+      " vec3 skyLow=mix(vec3(.953,.929,.871),vec3(.098,.184,.141),u_dark);",
+      " vec3 col=mix(skyLow,skyTop,smoothstep(.40,1.,uv.y));",
+      " vec2 sp=vec2(.66,.80); float sd=length((uv-sp)*vec2(ar,1.));",
+      " col+=mix(vec3(.98,.90,.70),vec3(.50,.42,.22),u_dark)*smoothstep(.34,.0,sd)*.5;",
+      " for(int i=0;i<6;i++){",
+      "  float fi=float(i);",
+      "  float base=.635-fi*.083;",
+      "  float amp=.020+fi*.011;",
+      "  float freq=1.15+fi*.62;",
+      "  float drift=t*(.25+fi*.16);",
+      "  float ry=base+amp*(fbm(vec2(uv.x*ar*freq+drift+fi*7.3,fi*3.1))-.5)*2.2;",
+      "  if(uv.y<ry){",
+      "   float far=1.-fi/5.;",
+      "   vec3 hill=mix(vec3(.176,.365,.271),vec3(.043,.110,.078),fi/5.);",
+      "   hill=mix(hill,vec3(.365,.541,.404),(1.-fi/5.)*.35);",
+      "   float d=ry-uv.y;",
+      "   float rows=sin(d*(150.-fi*14.)+fbm(vec2(uv.x*ar*3.,d*6.))*4.0);",
+      "   float rowShade=smoothstep(.1,.9,rows)*(.10+.06*(fi/5.));",
+      "   hill*=1.-rowShade*step(2.5,fi);",
+      "   vec3 haze=mix(vec3(.886,.894,.855),vec3(.118,.208,.161),u_dark);",
+      "   hill=mix(hill,haze,far*far*.82);",
+      "   col=mix(col,hill,smoothstep(0.,.006,d));",
+      "  }",
+      " }",
+      " float m=fbm(vec2(uv.x*ar*1.6+t*1.4,uv.y*7.-t*.5));",
+      " float band=smoothstep(.42,.86,m)*smoothstep(.62,.18,uv.y)*smoothstep(.02,.20,uv.y);",
+      " vec3 mist=mix(vec3(.969,.961,.933),vec3(.271,.369,.322),u_dark);",
+      " col=mix(col,mist,band*.62);",
+      " vec3 gnd=mix(vec3(.964,.945,.906),vec3(.047,.110,.082),u_dark);",
+      " col=mix(col,gnd,clamp(u_scr,0.,1.)*.85);",
+      " col+=(h(gl_FragCoord.xy+u_t)-.5)*.015;",
       " gl_FragColor=vec4(col,1.);",
       "}"
     ].join("\n");
 
-    function sh(type, src){
-      var s = gl.createShader(type);
-      gl.shaderSource(s, src); gl.compileShader(s);
-      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
-    }
-    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
-    if(!vs || !fs){ return; }
-    var pr = gl.createProgram();
-    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
-    if(!gl.getProgramParameter(pr, gl.LINK_STATUS)){ return; }
+    function sh(ty,src){var s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);
+      return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null;}
+    var vs=sh(gl.VERTEX_SHADER,VS), fs=sh(gl.FRAGMENT_SHADER,FS);
+    if(!vs||!fs) return;
+    var pr=gl.createProgram();gl.attachShader(pr,vs);gl.attachShader(pr,fs);gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS)) return;
     gl.useProgram(pr);
-
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(pr, "p");
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-    var uRes = gl.getUniformLocation(pr, "u_res"),
-        uT   = gl.getUniformLocation(pr, "u_t"),
-        uD   = gl.getUniformLocation(pr, "u_dark"),
-        uS   = gl.getUniformLocation(pr, "u_scr");
-
+    var bf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var lc=gl.getAttribLocation(pr,"p");gl.enableVertexAttribArray(lc);
+    gl.vertexAttribPointer(lc,2,gl.FLOAT,false,0,0);
+    var uRes=gl.getUniformLocation(pr,"u_res"),uT=gl.getUniformLocation(pr,"u_t"),
+        uD=gl.getUniformLocation(pr,"u_dark"),uS=gl.getUniformLocation(pr,"u_scr");
     function size(){
-      var d = Math.min(window.devicePixelRatio || 1, 1.6);
-      cv.width  = Math.floor(cv.clientWidth  * d);
-      cv.height = Math.floor(cv.clientHeight * d);
-      gl.viewport(0, 0, cv.width, cv.height);
-      gl.uniform2f(uRes, cv.width, cv.height);
+      var d=Math.min(window.devicePixelRatio||1,1.5);
+      cv.width=Math.floor(cv.clientWidth*d);cv.height=Math.floor(cv.clientHeight*d);
+      gl.viewport(0,0,cv.width,cv.height);gl.uniform2f(uRes,cv.width,cv.height);
     }
-    window.addEventListener("resize", size);
-    size();
-
-    var start = performance.now();
-    window.__glFrame = function(scr){
-      var dark = getComputedStyle(root).getPropertyValue("--dark-mode").trim() === "1";
-      gl.uniform1f(uD, dark ? 1 : 0);
-      gl.uniform1f(uS, scr);
-      gl.uniform1f(uT, reduced ? 12 : (performance.now() - start) / 1000);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    window.addEventListener("resize",size);size();
+    var t0=performance.now();
+    window.__garden=function(scr){
+      gl.uniform1f(uD, getComputedStyle(root).getPropertyValue("--dark-mode").trim()==="1"?1:0);
+      gl.uniform1f(uS,scr);
+      gl.uniform1f(uT, reduced?20:(performance.now()-t0)/1000);
+      gl.drawArrays(gl.TRIANGLES,0,3);
     };
   })();
 
-  /* ---------- drifting leaves ---------- */
+  /* ---------------- brewing sequence ---------------- */
+  var liquid=document.getElementById("liquid"), pour=document.getElementById("pour"),
+      steam=document.getElementById("steam"), rail=document.getElementById("brewRail"),
+      bar=document.getElementById("brewBar"), clock=document.getElementById("brewClock"),
+      temp=document.getElementById("brewTemp"),
+      phases=Array.prototype.slice.call(document.querySelectorAll(".brew__phase"));
+
+  var leafEls=[];
   (function(){
-    var cv = document.getElementById("leaves");
-    var ctx = cv.getContext("2d");
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var leaves = [], N = 16;
-
-    function size(){
-      cv.width = cv.clientWidth * dpr;
-      cv.height = cv.clientHeight * dpr;
+    var glass=document.getElementById("glass");
+    for(var i=0;i<9;i++){
+      var l=document.createElement("i");
+      l.className="cup__leaf";
+      leafEls.push({el:l, x:20+(i*23)%176, rest:186+((i*13)%40), rot:(i*47)%360, ph:i/9});
+      glass.appendChild(l);
     }
-    function seed(){
-      leaves = [];
-      for(var i = 0; i < N; i++){
-        leaves.push({
-          x: Math.random() * cv.width,
-          y: Math.random() * cv.height,
-          s: (5 + Math.random() * 11) * dpr,
-          vy: (.14 + Math.random() * .34) * dpr,
-          vx: (Math.random() - .5) * .28 * dpr,
-          a: Math.random() * Math.PI * 2,
-          va: (Math.random() - .5) * .012,
-          o: .10 + Math.random() * .22
-        });
-      }
-    }
-    window.addEventListener("resize", function(){ size(); seed(); });
-    size(); seed();
-
-    window.__leafFrame = function(){
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      var dark = getComputedStyle(root).getPropertyValue("--dark-mode").trim() === "1";
-      for(var i = 0; i < leaves.length; i++){
-        var L = leaves[i];
-        if(!reduced){
-          L.y += L.vy; L.x += L.vx + Math.sin(L.y * .004) * .3; L.a += L.va;
-        }
-        if(L.y - L.s > cv.height){ L.y = -L.s * 2; L.x = Math.random() * cv.width; }
-        ctx.save();
-        ctx.translate(L.x, L.y);
-        ctx.rotate(L.a);
-        ctx.globalAlpha = L.o;
-        ctx.fillStyle = dark ? "#7E9B84" : "#2F5D45";
-        /* a leaf: two mirrored quadratic curves */
-        ctx.beginPath();
-        ctx.moveTo(0, -L.s);
-        ctx.quadraticCurveTo(L.s * .72, 0, 0, L.s);
-        ctx.quadraticCurveTo(-L.s * .72, 0, 0, -L.s);
-        ctx.fill();
-        ctx.restore();
-      }
-    };
   })();
 
-  /* ---------- scroll engine ----------
-     One rAF loop drives: hero fade, the 21st.dev-style rotateX card,
-     plate parallax and tin rotation. No per-element scroll listeners.  */
-  var hero      = document.getElementById("hero"),
-      card      = document.getElementById("arrivalCard"),
-      head      = document.getElementById("arrivalHead"),
-      plates    = Array.prototype.slice.call(document.querySelectorAll(".plate")),
-      tin       = document.getElementById("tin"),
-      specimen  = document.getElementById("specimen"),
-      heroInner = document.getElementById("heroInner");
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function cl(v){return v<0?0:v>1?1:v;}
 
-  var mx = 0, my = 0, tmx = 0, tmy = 0;
-  if(!reduced && window.matchMedia("(pointer:fine)").matches){
-    window.addEventListener("mousemove", function(e){
-      tmx = (e.clientX / window.innerWidth  - .5) * 2;
-      tmy = (e.clientY / window.innerHeight - .5) * 2;
-    }, {passive:true});
+  function brew(p){
+    var pDrop=cl(p/.22), pPour=cl((p-.24)/.30), pSteep=cl((p-.56)/.26), pDone=cl((p-.84)/.16);
+
+    liquid.style.setProperty("--fill",(pPour*.78).toFixed(3));
+
+    var r=Math.round(lerp(lerp(232,226,pPour),186,pSteep));
+    var g=Math.round(lerp(lerp(228,214,pPour),150,pSteep));
+    var b=Math.round(lerp(lerp(206,152,pPour), 62,pSteep));
+    liquid.style.setProperty("--liq","rgba("+r+","+g+","+b+","+(.32+pPour*.5+pSteep*.16).toFixed(2)+")");
+
+    var pouring=(pPour>.02 && pPour<.99)?1:0;
+    pour.style.setProperty("--pour",pouring?"1":"0");
+    pour.style.setProperty("--pourS",pouring?"1":"0");
+    steam.style.setProperty("--steam",(pSteep*.9+pDone*.1).toFixed(2));
+
+    for(var i=0;i<leafEls.length;i++){
+      var L=leafEls[i];
+      var dp=cl((pDrop-L.ph*.5)/.5);
+      var y=lerp(-70,L.rest,dp);
+      var lift=pPour*56*(.5+(i%3)*.25);
+      var sway=Math.sin((p*6+i)*1.6)*(6*pSteep);
+      L.el.style.transform="translate("+(L.x+sway).toFixed(1)+"px,"+(y-lift).toFixed(1)+"px) rotate("+(L.rot+dp*160+pSteep*90).toFixed(0)+"deg)";
+      L.el.style.opacity=dp.toFixed(2);
+    }
+
+    bar.style.setProperty("--bp",cl(p).toFixed(3));
+    clock.textContent=Math.round(cl((p-.56)/.28)*90)+" s";
+    temp.textContent=(pPour>0?Math.round(lerp(80,74,pSteep)):80)+" °C";
+
+    var active=p<.24?0:p<.56?1:p<.84?2:3;
+    for(var k=0;k<phases.length;k++) phases[k].setAttribute("data-on",k===active?"1":"0");
   }
+  brew(0);
 
-  function prog(el, from, to){
-    var r = el.getBoundingClientRect(), vh = window.innerHeight;
-    var p = (vh * from - r.top) / (r.height + vh * (from - to));
-    return p < 0 ? 0 : p > 1 ? 1 : p;
+  /* ---------------- single scroll loop ---------------- */
+  var plates=Array.prototype.slice.call(document.querySelectorAll(".plate")),
+      pouch=document.getElementById("pouch"),
+      specimen=document.querySelector(".specimen"),
+      heroInner=document.querySelector(".hero__inner");
+  var mx=0,my=0,tmx=0,tmy=0;
+  if(!reduced && window.matchMedia("(pointer:fine)").matches){
+    window.addEventListener("mousemove",function(e){
+      tmx=(e.clientX/window.innerWidth-.5)*2; tmy=(e.clientY/window.innerHeight-.5)*2;
+    },{passive:true});
   }
 
   function frame(){
-    var y = window.scrollY || window.pageYOffset;
-    var vh = window.innerHeight;
-
-    nav.setAttribute("data-stuck", y > 12 ? "1" : "0");
-
-    /* hero */
-    var hp = Math.min(y / vh, 1);
-    if(window.__glFrame) window.__glFrame(hp);
-    if(window.__leafFrame) window.__leafFrame();
-
-    mx += (tmx - mx) * .06;
-    my += (tmy - my) * .06;
+    var y=window.scrollY||0, vh=window.innerHeight;
+    var hp=Math.min(y/vh,1);
+    if(window.__garden) window.__garden(hp);
+    mx+=(tmx-mx)*.06; my+=(tmy-my)*.06;
     if(heroInner){
-      heroInner.style.transform =
-        "translate3d(" + (mx * -13) + "px," + (hp * 58 + my * -9) + "px,0)";
-      heroInner.style.opacity = String(Math.max(0, 1 - hp * 1.35));
+      heroInner.style.transform="translate3d("+(mx*-11)+"px,"+(hp*54+my*-8)+"px,0)";
+      heroInner.style.opacity=String(Math.max(0,1-hp*1.35));
     }
     if(specimen){
-      specimen.style.transform =
-        "translate3d(" + (mx * 26) + "px," + (hp * 108 + my * 17) + "px,0) " +
-        "rotateY(" + (mx * -7) + "deg) rotateX(" + (my * 5) + "deg)";
-      specimen.style.opacity = String(Math.max(0, 1 - hp * 1.5));
+      specimen.style.transform="translate3d("+(mx*22)+"px,"+(hp*100+my*15)+"px,0)";
+      specimen.style.opacity=String(Math.max(0,1-hp*1.5));
     }
-
-    /* 3D arrival card — rotateX 22deg -> 0 */
-    if(card){
-      var p = prog(card, .95, .35);
-      card.style.setProperty("--p", p.toFixed(4));
-      head.style.setProperty("--p", p.toFixed(4));
-    }
-
-    /* plate parallax */
-    for(var i = 0; i < plates.length; i++){
-      var el = plates[i];
-      var r = el.getBoundingClientRect();
-      if(r.bottom > -200 && r.top < vh + 200){
-        el.style.setProperty("--q", ((vh - r.top) / (vh + r.height)).toFixed(4));
+    if(rail && !reduced){
+      var rr=rail.getBoundingClientRect();
+      if(rr.bottom>0 && rr.top<vh){
+        var p=(-rr.top)/(rr.height-vh);
+        brew(p<0?0:p>1?1:p);
       }
     }
-
-    /* tin rotation */
-    if(tin){
-      var tr = tin.getBoundingClientRect();
-      if(tr.bottom > -300 && tr.top < vh + 300){
-        var tp = (vh - tr.top) / (vh + tr.height);
-        /* -65deg -> +65deg: a real turn, but the printed label stays readable
-           through the whole travel instead of spinning away to the back */
-        tin.style.setProperty("--spin", (tp * 130 - 65).toFixed(2));
+    for(var i=0;i<plates.length;i++){
+      var r=plates[i].getBoundingClientRect();
+      if(r.bottom>-200 && r.top<vh+200){
+        plates[i].style.setProperty("--q",((vh-r.top)/(vh+r.height)).toFixed(4));
       }
     }
-
+    if(pouch){
+      var p2=pouch.getBoundingClientRect();
+      if(p2.bottom>-300 && p2.top<vh+300){
+        pouch.style.setProperty("--spin",(((vh-p2.top)/(vh+p2.height))*120-70).toFixed(2));
+      }
+    }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 
-  /* ---------- build the tin cylinder ---------- */
+  /* ---------------- collection preview ---------------- */
   (function(){
-    if(!tin) return;
-    /* 20 faces x 38px ≈ 2·π·118 circumference, so the panels just overlap */
-    var FACES = 20, R = 118, LIGHT = -32 * Math.PI / 180;
-    for(var i = 0; i < FACES; i++){
-      var a = i * (Math.PI * 2 / FACES);
-      var f = document.createElement("div");
-      f.className = "tin__face";
-      f.style.transform = "rotateY(" + (i * (360 / FACES)) + "deg) translateZ(" + R + "px)";
-      /* lambert-ish: brightest where the face normal points at the light */
-      f.style.filter = "brightness(" + (0.34 + 0.76 * Math.max(0, Math.cos(a - LIGHT))).toFixed(3) + ")";
-      tin.insertBefore(f, tin.firstChild);
-    }
+    var C=window.VERDANT_CATALOG, grid=document.getElementById("teaGrid");
+    var order=["misty-ridge","ember-gold","deep-forest","first-light"];
+    var shots={"misty-ridge":["#A9C48C","#4A7C5D"],"ember-gold":["#E0B457","#8A5A16"],
+               "deep-forest":["#6B5237","#20140A"],"first-light":["#F0E6CC","#B9A87E"]};
+    var desc={"misty-ridge":"Chestnut and cut grass, with a sweetness that arrives late and stays.",
+      "ember-gold":"Roasted stone fruit and honey. Hand rolled into pearls, four steeps deep.",
+      "deep-forest":"Damp cedar, dark cocoa, wet stone. Eight years in Kunming.",
+      "first-light":"Melon, hay and a little salt. Sun withered, never touched by fire."};
+    var tags={"misty-ridge":"62 left","ember-gold":"New lot","deep-forest":"Aged 2018","first-light":"Last 18"};
+    grid.innerHTML=order.map(function(id){
+      var t=C[id];
+      return '<article class="tea reveal"><div class="tea__in">'+
+        '<a class="tea__shot" href="product.html" style="--s1:'+shots[id][0]+';--s2:'+shots[id][1]+'" aria-label="'+t.name+'">'+
+        '<span class="tea__tag">'+tags[id]+'</span></a>'+
+        '<div class="tea__top"><h3><a href="product.html">'+t.name+'</a></h3>'+
+        '<span class="tea__type mono">'+t.type+'</span></div>'+
+        '<p class="tea__desc">'+desc[id]+'</p>'+
+        '<dl class="tea__meta mono"><div><dt>Garden</dt><dd>'+t.garden+'</dd></div>'+
+        '<div><dt>Pouch</dt><dd>'+t.size+'</dd></div></dl>'+
+        '<div class="tea__buy"><span class="tea__price">'+window.money(t.price)+'</span>'+
+        '<button class="btn3 btn3--sm" type="button" data-add="'+id+'"><span data-label>Add</span></button></div>'+
+        '</div></article>';
+    }).join("");
   })();
 
-  /* ---------- reveal on enter ---------- */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
-    });
-  }, {rootMargin:"0px 0px -12% 0px"});
-  Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function(el, i){
-    el.style.transitionDelay = (Math.min(i, 5) * 55) + "ms";
-    io.observe(el);
-  });
-
-  /* ---------- 3D tilt on tea cards ---------- */
-  if(!reduced && window.matchMedia("(pointer:fine)").matches){
-    Array.prototype.forEach.call(document.querySelectorAll(".tea"), function(cardEl){
-      var inner = cardEl.querySelector(".tea__in");
-      cardEl.addEventListener("mousemove", function(e){
-        var r = cardEl.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width  - .5;
-        var py = (e.clientY - r.top)  / r.height - .5;
-        inner.style.transform =
-          "rotateY(" + (px * 13) + "deg) rotateX(" + (py * -13) + "deg) translateZ(14px)";
-      });
-      cardEl.addEventListener("mouseleave", function(){ inner.style.transform = ""; });
-    });
-  }
-
-  /* ---------- add to cart ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll(".tea__add"), function(b){
-    b.addEventListener("click", function(){
-      if(b.dataset.busy) return;
-      b.dataset.busy = "1";
-      var was = b.textContent;
-      b.textContent = "Added";
-      setTimeout(function(){ b.textContent = was; delete b.dataset.busy; }, 1600);
-    });
-  });
-
-  /* ---------- signup ---------- */
-  var form = document.getElementById("signup"),
-      note = document.getElementById("signupNote"),
-      input = document.getElementById("email");
-  form.addEventListener("submit", function(e){
+  var form=document.getElementById("signup"), note=document.getElementById("signupNote"),
+      input=document.getElementById("email");
+  form.addEventListener("submit",function(e){
     e.preventDefault();
-    var v = input.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
-      note.textContent = "That address is missing something — check for a typo and try again.";
-      input.focus();
-      return;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim())){
+      note.textContent="That address is missing something — check for a typo and try again.";
+      input.focus(); return;
     }
-    note.textContent = "You are on the list. The next lot lands in early April.";
+    note.textContent="You are on the list. The next lot lands in early April.";
     form.reset();
   });
 })();
 </script>
-
 </body>
 </html>
