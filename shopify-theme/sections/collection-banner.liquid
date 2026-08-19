@@ -1,0 +1,26 @@
+<header class="phead" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <nav class="crumbs mono" aria-label="{{ 'general.breadcrumb' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span>
+      <span aria-current="page">{{ collection.title | default: 'Collection' }}</span>
+    </nav>
+    <h1>{{ collection.title | default: section.settings.fallback_heading }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="rte">{{ collection.description }}</div>
+    {%- elsif section.settings.fallback_text != blank -%}
+      <p>{{ section.settings.fallback_text }}</p>
+    {%- endif -%}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "fallback_heading", "label": "Heading when empty", "default": "The collection" },
+    { "type": "textarea", "id": "fallback_text", "label": "Text when the collection has no description",
+      "default": "Everything here is whole leaf, harvest dated and packed in a handmade pouch." }
+  ]
+}
+{% endschema %}

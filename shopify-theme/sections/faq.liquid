@@ -1,0 +1,46 @@
+<section class="sec" id="faq" data-section-id="{{ section.id }}" style="background:var(--ground-2);border-block:1px solid var(--rule)">
+  <div class="wrap">
+    <div class="sec__head reveal" style="grid-template-columns:minmax(0,1fr)">
+      <h2 style="font-size:var(--t-2xl);letter-spacing:-.02em;max-width:16ch">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="faq">
+      {%- for block in section.blocks -%}
+        <details {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          {{ block.settings.answer }}
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions we actually get" }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How long does it keep once opened?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>About four months at full quality.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "qa", "settings": {} },
+        { "type": "qa", "settings": {} },
+        { "type": "qa", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}

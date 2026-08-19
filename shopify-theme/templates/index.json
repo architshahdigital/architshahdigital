@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-garden",
+      "settings": {}
+    },
+    "brewing": {
+      "type": "brewing-ritual",
+      "settings": {}
+    },
+    "gardens": {
+      "type": "gardens",
+      "settings": {}
+    },
+    "pouch": {
+      "type": "pouch-story",
+      "settings": {}
+    },
+    "lots": {
+      "type": "featured-lots",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "brewing",
+    "gardens",
+    "pouch",
+    "lots",
+    "testimonials",
+    "trust",
+    "newsletter"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "a": {
+          "type": "item",
+          "settings": {
+            "text": "Whole leaf, never dust"
+          }
+        },
+        "b": {
+          "type": "item",
+          "settings": {
+            "text": "Harvest dated"
+          }
+        },
+        "c": {
+          "type": "item",
+          "settings": {
+            "text": "Packed in Kolkata"
+          }
+        },
+        "d": {
+          "type": "item",
+          "settings": {
+            "text": "Free shipping over ₹2,000"
+          }
+        },
+        "e": {
+          "type": "item",
+          "settings": {
+            "text": "Tasted before it ships"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "settings": {
+        "text": "on"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

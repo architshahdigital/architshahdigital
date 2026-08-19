@@ -1,0 +1,20 @@
+<header class="phead" data-section-id="{{ section.id }}">
+  <div class="wrap"><h1>{{ blog.title }}</h1></div>
+</header>
+<section class="sec">
+  <div class="wrap">
+    <div class="quotes">
+      {%- for article in blog.articles -%}
+        <figure class="quote">
+          <span class="mono" style="color:var(--ink-2)">{{ article.published_at | date: '%d %b %Y' }}</span>
+          <blockquote><a href="{{ article.url }}">{{ article.title }}</a></blockquote>
+          <figcaption><span class="mono">{{ article.excerpt_or_content | strip_html | truncate: 110 }}</span></figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog", "tag": "section", "settings": [] }
+{% endschema %}

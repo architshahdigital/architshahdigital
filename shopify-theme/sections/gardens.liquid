@@ -1,0 +1,52 @@
+<section class="sec origin" id="origin" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="plates">
+      {%- for block in section.blocks -%}
+        <article class="plate" {{ block.shopify_attributes }}>
+          <span class="plate__n mono">{{ forloop.index | prepend: '0' | slice: -2, 2 }} · {{ block.settings.region }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gardens",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The gardens we buy from" },
+    { "type": "textarea", "id": "text", "label": "Text",
+      "default": "Fifty years of buying at auction and direct from the estates means we know whose leaf is worth carrying this season, and whose is not." }
+  ],
+  "blocks": [
+    {
+      "type": "garden",
+      "name": "Garden",
+      "settings": [
+        { "type": "text", "id": "region", "label": "Region", "default": "Darjeeling, WB" },
+        { "type": "text", "id": "title", "label": "Name", "default": "First Flush" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Picked in March on slopes above 1,800 m." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Gardens",
+      "blocks": [
+        { "type": "garden", "settings": { "region": "Darjeeling, WB", "title": "First Flush", "text": "Picked in March on slopes above 1,800 m. Muscatel, brisk, and gone by June." } },
+        { "type": "garden", "settings": { "region": "Assam, AS", "title": "Brahmaputra valley", "text": "Second flush orthodox from the floodplain. Malty, full, and the one that takes milk." } },
+        { "type": "garden", "settings": { "region": "Nilgiri, TN", "title": "Blue Mountains", "text": "Frost tea picked in December at 2,000 m. Clean, floral, and good iced." } },
+        { "type": "garden", "settings": { "region": "Kangra, HP", "title": "Dharamshala", "text": "A small Himalayan crop, barely traded outside the state. Light, sweet, unusual." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

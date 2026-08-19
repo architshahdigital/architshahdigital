@@ -1,0 +1,10 @@
+# Python bytecode from the ui-ux-pro-max skill scripts
+__pycache__/
+*.py[cod]
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Built theme package (regenerate with: cd shopify-theme && zip -r ../brew-your-sip-shopify-theme.zip .)
+brew-your-sip-shopify-theme.zip

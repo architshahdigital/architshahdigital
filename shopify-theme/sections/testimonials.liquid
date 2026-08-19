@@ -1,0 +1,54 @@
+<section class="sec" data-section-id="{{ section.id }}" style="background:var(--ground-2);border-block:1px solid var(--rule)">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="quotes">
+      {%- for block in section.blocks -%}
+        <figure class="quote reveal" {{ block.shopify_attributes }}>
+          {% render 'star-rating', rating: block.settings.rating %}
+          <blockquote>{{ block.settings.quote }}</blockquote>
+          <figcaption>
+            <b>{{ block.settings.name }}</b>
+            <span class="mono">{{ block.settings.detail }}</span>
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What drinkers say" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We publish the middling ones too." }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The second steep is better than the first." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Ananya R." },
+        { "type": "text", "id": "detail", "label": "Detail", "default": "Kolkata · verified" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "quote", "settings": {} },
+        { "type": "quote", "settings": {} },
+        { "type": "quote", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}

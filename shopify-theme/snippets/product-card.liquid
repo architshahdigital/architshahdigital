@@ -1,0 +1,64 @@
+{%- comment -%}
+  Product card. `card_product` is required. The gradient swatch is the
+  fallback when a product has no image, so the grid never shows a hole.
+{%- endcomment -%}
+{%- assign p = card_product -%}
+{%- assign garden = p.metafields.tea.garden.value -%}
+{%- assign size = p.variants.first.title -%}
+<article class="tea reveal" data-product-type="{{ p.type | escape }}">
+  <div class="tea__in">
+    <a class="tea__shot" href="{{ p.url }}" aria-label="{{ p.title | escape }}"
+       {% unless p.featured_image %}style="--s1:#A9C48C;--s2:#4A7C5D"{% endunless %}>
+      {%- if p.featured_image -%}
+        {{ p.featured_image | image_url: width: 600 | image_tag:
+           loading: 'lazy', widths: '300,600,900', class: 'tea__img',
+           alt: p.featured_image.alt | default: p.title | escape }}
+      {%- endif -%}
+      {%- if p.available == false -%}
+        <span class="tea__tag">{{ 'products.product.sold_out' | t }}</span>
+      {%- elsif p.compare_at_price > p.price -%}
+        <span class="tea__tag">{{ 'products.product.on_sale' | t }}</span>
+      {%- elsif p.metafields.tea.lot.value != blank -%}
+        <span class="tea__tag">{{ p.metafields.tea.lot.value }}</span>
+      {%- endif -%}
+    </a>
+
+    <div class="tea__top">
+      <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
+      {%- if p.type != blank -%}<span class="tea__type mono">{{ p.type }}</span>{%- endif -%}
+    </div>
+
+    {%- if p.description != blank -%}
+      <p class="tea__desc">{{ p.description | strip_html | truncate: 110 }}</p>
+    {%- endif -%}
+
+    <dl class="tea__meta mono">
+      {%- if garden != blank -%}
+        <div><dt>{{ 'products.product.garden' | t }}</dt><dd>{{ garden }}</dd></div>
+      {%- endif -%}
+      {%- if size != blank and size != 'Default Title' -%}
+        <div><dt>{{ 'products.product.pouch' | t }}</dt><dd>{{ size }}</dd></div>
+      {%- endif -%}
+    </dl>
+
+    <div class="tea__buy">
+      <span class="tea__price">
+        {{ p.price | money }}
+        {%- if p.compare_at_price > p.price -%}<s>{{ p.compare_at_price | money }}</s>{%- endif -%}
+      </span>
+      {%- if p.available -%}
+        <form method="post" action="{{ routes.cart_add_url }}" data-product-form>
+          <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button class="btn3 btn3--sm" type="submit" data-add-button>
+            <span data-label>{{ 'products.product.add' | t }}</span>
+          </button>
+        </form>
+      {%- else -%}
+        <button class="btn3 btn3--sm" type="button" disabled>
+          <span>{{ 'products.product.sold_out' | t }}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

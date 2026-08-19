@@ -1,0 +1,18 @@
+<header class="phead" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <nav class="crumbs mono" aria-label="{{ 'general.breadcrumb' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span>/</span>
+      <span aria-current="page">{{ page.title }}</span>
+    </nav>
+    <h1>{{ page.title }}</h1>
+  </div>
+</header>
+<section class="sec">
+  <div class="wrap">
+    <div class="rte" style="max-width:65ch">{{ page.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Page", "tag": "section", "settings": [] }
+{% endschema %}

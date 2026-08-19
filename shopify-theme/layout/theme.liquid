@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" {% if settings.color_scheme_default != 'system' %}data-theme="{{ settings.color_scheme_default }}"{% endif %}>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_forest }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.use_theme_fonts == false -%}
+    {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {{ settings.font_body | font_face: font_display: 'swap' }}
+  {%- endif -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% render 'meta-tags' %}
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%2312291F%27/%3E%3Cpath d=%27M23 7c2.4 8-2 17-10 18-3.2.4-5.4-1.4-5.4-4.6C7.6 12.8 13.8 8 23 7z%27 fill=%27%237E9B84%27/%3E%3Cpath d=%27M9 24C13 18 17 13 22 9%27 stroke=%27%2312291F%27 stroke-width=%271.6%27 fill=%27none%27/%3E%3C/svg%3E">
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {%- comment -%}
+    Never divide an unset setting straight into a CSS length: Liquid turns nil
+    into 0, which would set --max to 0rem and collapse every .wrap on the site.
+    Fall back to a sane width whenever the value is missing or implausible.
+  {%- endcomment -%}
+  {%- assign page_w = settings.page_width -%}
+  {%- if page_w == blank or page_w < 320 -%}{%- assign page_w = 1220 -%}{%- endif -%}
+
+  <style>
+    :root{
+      --forest: {{ settings.color_forest | default: '#12291F' }};
+      --moss: {{ settings.color_moss | default: '#2F5D45' }};
+      --beige: {{ settings.color_beige | default: '#E3D5BC' }};
+      --paper: {{ settings.color_paper | default: '#F6F1E7' }};
+      --liquor: {{ settings.color_liquor | default: '#C08A2E' }};
+      --max: {{ page_w | divided_by: 16.0 }}rem;
+      {%- if settings.use_theme_fonts == false %}
+      --display: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+      --body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+      {%- endif %}
+    }
+    {%- unless settings.enable_motion %}
+    /* motion disabled in theme settings */
+    .reveal{opacity:1 !important;transform:none !important}
+    {%- endunless %}
+  </style>
+
+  <script>
+    // Apply the saved appearance before first paint so the page never flashes
+    // the wrong theme on load.
+    (function(){
+      try{
+        var t = localStorage.getItem('verdant.theme');
+        if(t){ document.documentElement.setAttribute('data-theme', t); }
+      }catch(e){}
+    })();
+    window.VerdantSettings = {
+      cartAjax: {{ settings.cart_ajax | json }},
+      freeShippingThreshold: {{ settings.free_shipping_threshold | default: 0 | times: 1 | json }},
+      moneyFormat: {{ shop.money_format | json }},
+      motion: {{ settings.enable_motion | json }},
+      routes: {
+        cart: {{ routes.cart_url | json }},
+        cartAdd: {{ routes.cart_add_url | json }},
+        cartChange: {{ routes.cart_change_url | json }},
+        cartUpdate: {{ routes.cart_update_url | json }},
+        predictiveSearch: {{ routes.predictive_search_url | json }}
+      },
+      strings: {
+        added: {{ 'products.product.added' | t | json }},
+        removed: {{ 'cart.general.removed' | t | json }},
+        error: {{ 'cart.general.error' | t | json }}
+      }
+    };
+  </script>
+
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ template.name | handle }}">
+  <a class="skip-link btn3 btn3--sm" href="#main">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  {% sections 'header-group' %}
+
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  <div class="toast" data-on="0" role="status" aria-live="polite">
+    {% render 'icon', name: 'check' %}
+    <span></span>
+  </div>
+
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  {%- if template.name == 'index' -%}
+    <script src="{{ 'home.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+</body>
+</html>
