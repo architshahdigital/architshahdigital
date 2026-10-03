@@ -1,0 +1,54 @@
+<section class="sec" id="brew-steps" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <ol class="steps">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <span class="steps__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <div><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>
+          {%- if block.settings.spec != blank -%}
+            <span class="steps__spec">{{ block.settings.spec }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How to prepare",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How to prepare it" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Western style, in a glass." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Warm the glass" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Rinse with hot water and tip it out." },
+        { "type": "text", "id": "spec", "label": "Spec", "default": "30 s" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "How to prepare",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Warm the glass", "text": "Rinse with hot water and tip it out. Cold glass steals heat from the first steep.", "spec": "30 s" } },
+        { "type": "step", "settings": { "title": "Measure five grams", "text": "Weigh it if you can — this leaf is flat and light, so spoons under-read by half.", "spec": "5 g / 150 ml" } },
+        { "type": "step", "settings": { "title": "Water at 80 °C", "text": "Boil, then wait four minutes. Boiling water scorches unoxidised leaf.", "spec": "80 °C" } },
+        { "type": "step", "settings": { "title": "Steep ninety seconds", "text": "Pour down the side of the glass, not onto the leaf.", "spec": "90 s" } },
+        { "type": "step", "settings": { "title": "Steep it again", "text": "Add fifteen seconds each round. The third steep is often the best.", "spec": "×5" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

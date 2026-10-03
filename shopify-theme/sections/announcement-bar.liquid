@@ -1,0 +1,42 @@
+{%- if section.settings.text != blank -%}
+<div class="ticker" role="region" aria-label="{{ 'sections.announcement.label' | t }}">
+  <div class="ticker__track">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span {{ block.shopify_attributes }}>{{ block.settings.text }}<span></span></span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Enable (leave blank to hide)", "default": "on" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Whole leaf only" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Whole leaf only" } },
+        { "type": "item", "settings": { "text": "Harvest dated" } },
+        { "type": "item", "settings": { "text": "Direct trade" } },
+        { "type": "item", "settings": { "text": "Handmade pouches" } },
+        { "type": "item", "settings": { "text": "Cupped twice before release" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

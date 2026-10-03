@@ -1,0 +1,43 @@
+<section class="sec close" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <h2 class="reveal">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}
+      <p class="close__lede reveal">{{ section.settings.text }}</p>
+    {%- endif -%}
+
+    {% form 'customer', class: 'signup reveal' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="sr" for="NewsletterEmail">{{ 'general.newsletter.email' | t }}</label>
+      <input id="NewsletterEmail" type="email" name="contact[email]" required
+             autocomplete="email" placeholder="{{ 'general.newsletter.placeholder' | t }}"
+             value="{{ form.email }}">
+      <button class="btn3 btn3--gold" type="submit">{{ section.settings.button | default: 'Notify me' }}</button>
+      {%- if form.errors -%}
+        <p class="signup__note mono" role="alert" style="color:#C0492E">
+          {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+        </p>
+      {%- elsif form.posted_successfully? -%}
+        <p class="signup__note mono" role="status">{{ 'general.newsletter.success' | t }}</p>
+      {%- endif -%}
+    {% endform %}
+
+    {%- if section.settings.note != blank -%}
+      <p class="signup__note mono reveal">{{ section.settings.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>One lot, <em>once</em>. Hear about it first.</p>" },
+    { "type": "textarea", "id": "text", "label": "Text",
+      "default": "We release four to six lots a year. Subscribers see them a week early." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Notify me" },
+    { "type": "text", "id": "note", "label": "Small print", "default": "Four to six emails a year. Nothing else, ever." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

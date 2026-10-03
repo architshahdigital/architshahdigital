@@ -1,0 +1,43 @@
+<nav class="nav" data-section-id="{{ section.id }}" data-cart-count-section="{{ section.id }}">
+  <a class="nav__mark" href="{{ routes.root_url }}">
+    <strong>{{ section.settings.brand | default: shop.name }}</strong>
+    {%- if section.settings.tagline != blank -%}
+      <span class="mono">{{ section.settings.tagline }}</span>
+    {%- endif -%}
+  </a>
+
+  <div class="nav__links">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+
+  <div class="nav__end">
+    {%- if section.settings.show_search -%}
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="{{ 'general.search.title' | t }}">
+        {% render 'icon', name: 'search' %}
+      </a>
+    {%- endif -%}
+    {%- if settings.show_theme_toggle -%}
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="{{ 'general.accessibility.theme_toggle' | t }}">
+        {% render 'icon', name: 'moon' %}{% render 'icon', name: 'sun' %}
+      </button>
+    {%- endif -%}
+    <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'cart.general.title' | t }}">
+      {% render 'icon', name: 'cart' %}
+      <span class="cart-pip" data-n="{{ cart.item_count }}">{{ cart.item_count }}</span>
+    </a>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "brand", "label": "Wordmark", "default": "Brew Your Sip" },
+    { "type": "text", "id": "tagline", "label": "Small text beside the wordmark", "default": "Est. 2024" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true }
+  ]
+}
+{% endschema %}
