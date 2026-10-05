@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "www": {
+      "type": "who-what-why",
+      "settings": {}
+    },
+    "steps": {
+      "type": "brew-steps",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {}
+    },
+    "related": {
+      "type": "product-recommendations",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "trust",
+    "www",
+    "steps",
+    "faq",
+    "related"
+  ]
+}

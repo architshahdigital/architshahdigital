@@ -1,0 +1,14 @@
+{%- comment -%}
+  Renders five stars. `rating` is 0-5. Falls back to the shop average when a
+  product has no reviews metafield yet.
+{%- endcomment -%}
+{%- assign r = rating | default: 5 | round -%}
+<span class="stars" aria-label="{{ 'products.product.rating_label' | t: rating: r }}">
+  {%- for i in (1..5) -%}
+    {%- if i <= r -%}
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+    {%- else -%}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 2 3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+    {%- endif -%}
+  {%- endfor -%}
+</span>

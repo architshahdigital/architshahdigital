@@ -1,0 +1,51 @@
+<section class="sec" data-section-id="{{ section.id }}" style="padding-block:clamp(2rem,4vw,3rem)">
+  <div class="wrap">
+    <div class="trust reveal">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {% render 'icon', name: block.settings.icon %}
+          <div><b>{{ block.settings.title }}</b><p>{{ block.settings.text }}</p></div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "return", "label": "Return" },
+            { "value": "card", "label": "Card" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "clock", "label": "Clock" }
+          ], "default": "shield" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Harvest guarantee" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Stamped pick date on every pouch." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Trust badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "shield", "title": "Harvest guarantee", "text": "Stamped pick date on every pouch, or your money back." } },
+        { "type": "badge", "settings": { "icon": "truck", "title": "Fast dispatch", "text": "Leaves our packing room within 24 hours." } },
+        { "type": "badge", "settings": { "icon": "return", "title": "Brew it, or return it", "text": "Open the pouch. If it is not right, we refund it." } },
+        { "type": "badge", "settings": { "icon": "card", "title": "Secure checkout", "text": "Encrypted end to end by Shopify." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+<section class="sec" id="why" data-section-id="{{ section.id }}" style="padding-top:clamp(2rem,4vw,3rem)">
+  <div class="wrap">
+    <div class="sec__head reveal" style="grid-template-columns:minmax(0,1fr);margin-bottom:clamp(2rem,4vw,3rem)">
+      <h2 style="font-size:var(--t-2xl);letter-spacing:-.02em;max-width:18ch">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+  <div class="wrap" style="padding-inline:0">
+    <div class="www">
+      {%- for block in section.blocks -%}
+        <div class="www__col" {{ block.shopify_attributes }}>
+          <div class="www__k">
+            <b>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>
+            <span>{{ block.settings.key }}</span>
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          {{ block.settings.text }}
+          {%- if block.settings.facts != blank -%}
+            <ul class="www__facts">
+              {%- assign rows = block.settings.facts | newline_to_br | split: '<br />' -%}
+              {%- for row in rows -%}
+                {%- assign pair = row | strip | split: '|' -%}
+                {%- if pair.size == 2 -%}
+                  <li><b>{{ pair[0] | strip }}</b><span>{{ pair[1] | strip }}</span></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Who / What / Why",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Everything about this lot, in three questions" }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        { "type": "text", "id": "key", "label": "Label", "default": "Who" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The family who grew it" },
+        { "type": "richtext", "id": "text", "label": "Body", "default": "<p>Tell the story here.</p>" },
+        { "type": "textarea", "id": "facts", "label": "Facts",
+          "info": "One per line, as Label | Value",
+          "default": "Grower | Fang Wei\nSince | 2019\nHectares | 11" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Who / What / Why",
+      "blocks": [
+        { "type": "column", "settings": { "key": "Who", "title": "The Fang family, third generation" } },
+        { "type": "column", "settings": { "key": "What", "title": "A pan-fired spring green, unoxidised" } },
+        { "type": "column", "settings": { "key": "Why", "title": "Because altitude is a flavour you can taste" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

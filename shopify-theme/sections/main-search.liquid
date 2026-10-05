@@ -1,0 +1,32 @@
+<header class="phead" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <h1>{{ 'general.search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" class="signup" style="margin-inline:0;max-width:34rem">
+      <label class="sr" for="SearchInput">{{ 'general.search.title' | t }}</label>
+      <input id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}"
+             placeholder="{{ 'general.search.placeholder' | t }}">
+      <button class="btn3 btn3--gold" type="submit">{{ 'general.search.submit' | t }}</button>
+    </form>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    {%- if search.performed -%}
+      <p class="count mono">{{ 'general.search.results_count' | t | replace: '[count]', search.results_count }}</p>
+      <div class="grid-teas">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', card_product: item %}
+          {%- endif -%}
+        {%- else -%}
+          <p class="empty mono">{{ 'general.search.no_results' | t }}</p>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search", "tag": "section", "settings": [] }
+{% endschema %}

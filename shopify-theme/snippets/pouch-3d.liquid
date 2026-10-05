@@ -1,0 +1,39 @@
+{%- comment -%}
+  Editable 3D pouch, shared by the home page and the product page.
+  Every colour and every line of the label is passed in from section
+  settings, so a merchant can restyle the pack without touching code.
+
+  Params: id, brand, line1, line2, line3, kraft_light, kraft_mid,
+          kraft_dark, label_bg, label_ink, label_accent, scale, hint
+{%- endcomment -%}
+{%- unless bare -%}<div class="pouch-stage">{%- endunless -%}
+  <div class="pouch"
+       id="{{ id | default: 'pouch' }}"
+       style="
+         --kraft-1: {{ kraft_light | default: '#CFBA90' }};
+         --kraft-2: {{ kraft_mid | default: '#AE9468' }};
+         --kraft-3: {{ kraft_dark | default: '#8B7249' }};
+         --label-bg: {{ label_bg | default: '#12291F' }};
+         --label-ink: {{ label_ink | default: '#E3D5BC' }};
+         --label-accent: {{ label_accent | default: '#C08A2E' }};
+         --pouch-scale: {{ scale | default: 100 | divided_by: 100.0 }};
+       ">
+    <div class="pouch__s pouch__s--l"></div>
+    <div class="pouch__s pouch__s--r"></div>
+    <div class="pouch__f pouch__f--back"></div>
+    <div class="pouch__f pouch__f--front"></div>
+    <div class="pouch__crimp"></div>
+    <div class="pouch__label">
+      {%- if brand != blank -%}<b>{{ brand }}</b>{%- endif -%}
+      <hr>
+      <i>
+        {{ line1 }}
+        {%- if line2 != blank %}<br>{{ line2 }}{% endif -%}
+        {%- if line3 != blank %}<br>{{ line3 }}{% endif -%}
+      </i>
+    </div>
+  </div>
+  {%- if hint != blank -%}
+    <p class="pouch-hint mono">{{ hint }}</p>
+  {%- endif -%}
+{%- unless bare -%}</div>{%- endunless -%}

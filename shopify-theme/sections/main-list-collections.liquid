@@ -1,0 +1,19 @@
+<section class="sec" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <div class="plates">
+      {%- for coll in collections -%}
+        <a class="plate" href="{{ coll.url }}">
+          <span class="plate__n mono">{{ coll.products_count }} {{ 'collections.general.items' | t }}</span>
+          <h3>{{ coll.title }}</h3>
+          {%- if coll.description != blank -%}
+            <p>{{ coll.description | strip_html | truncate: 90 }}</p>
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "tag": "section", "settings": [] }
+{% endschema %}

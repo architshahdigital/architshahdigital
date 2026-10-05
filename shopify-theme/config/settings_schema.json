@@ -1,0 +1,177 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Brew Your Sip",
+    "theme_version": "1.0.0",
+    "theme_author": "Brew Your Sip \u00b7 Unique Tea Centre, Kolkata",
+    "theme_documentation_url": "https://github.com/architshahdigital/architshahdigital/tree/main/shopify-theme",
+    "theme_support_url": "https://github.com/architshahdigital/architshahdigital/issues"
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand"
+      },
+      {
+        "type": "color",
+        "id": "color_forest",
+        "label": "Forest green (primary)",
+        "default": "#12291F",
+        "info": "Used for dark bands, buttons and the pouch label."
+      },
+      {
+        "type": "color",
+        "id": "color_moss",
+        "label": "Moss",
+        "default": "#2F5D45"
+      },
+      {
+        "type": "color",
+        "id": "color_beige",
+        "label": "Beige (secondary)",
+        "default": "#E3D5BC"
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Paper",
+        "default": "#F6F1E7",
+        "info": "The light page background."
+      },
+      {
+        "type": "color",
+        "id": "color_liquor",
+        "label": "Tea liquor (accent)",
+        "default": "#C08A2E",
+        "info": "Reserved for accents and the primary call to action."
+      },
+      {
+        "type": "header",
+        "content": "Dark mode"
+      },
+      {
+        "type": "select",
+        "id": "color_scheme_default",
+        "label": "Default appearance",
+        "options": [
+          {
+            "value": "system",
+            "label": "Follow the visitor's system setting"
+          },
+          {
+            "value": "light",
+            "label": "Always light"
+          },
+          {
+            "value": "dark",
+            "label": "Always dark"
+          }
+        ],
+        "default": "system"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_theme_toggle",
+        "label": "Show the light/dark toggle in the header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Headings",
+        "default": "assistant_n4",
+        "info": "The theme is designed around a high-contrast serif. Pick one here, or keep the built-in system stack by leaving the checkbox below ticked."
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_theme_fonts",
+        "label": "Use the theme's built-in font stacks instead",
+        "default": true,
+        "info": "Keeps the original serif + monospace pairing and loads no external fonts."
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1220
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_motion",
+        "label": "Enable 3D and scroll animation",
+        "default": true,
+        "info": "Visitors who ask for reduced motion always get the static version regardless of this setting."
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_ajax",
+        "label": "Add to cart without reloading the page",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": "2000",
+        "info": "In your store currency, without symbols. Leave blank to hide the progress meter."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_upsell",
+        "label": "Show recommended products in the cart",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product metafields",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Lot details come from product metafields. Create these in Settings > Custom data > Products, all under the namespace 'tea': garden (single line text), altitude (single line text), harvested (date), oxidation (single line text), lot (single line text). Any field you leave empty is simply skipped."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Social links and the store address now live on the Footer section, so they can be reordered and translated with the rest of the footer."
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "hello@brewyoursip.com"
+      }
+    ]
+  }
+]
